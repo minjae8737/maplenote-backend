@@ -244,4 +244,35 @@ public class CharacterService {
                 .bodyToMono(CharacterCashItemEquipment.class);
     }
 
+    public Mono<CharacterBeautyEquipment> getCharacterBeautyEquipment(String ocid, String date) {
+        String url = BASEURL + "/beauty-equipment";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterBeautyEquipment.class);
+    }
+
+
+    public Mono<CharacterAndroidEquipment> getCharacterAndroidEquipment(String ocid, String date) {
+        String url = BASEURL + "/android-equipment";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterAndroidEquipment.class);
+    }
+
 }

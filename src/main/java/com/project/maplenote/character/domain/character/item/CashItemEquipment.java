@@ -26,7 +26,7 @@ public class CashItemEquipment {
     private String cashItemDescription; // 캐시 장비 설명
 
     @JsonProperty("cash_item_option")
-    private List<CashItemOption> cashItemOption; // 캐시 장비 옵션
+    private List<ItemOption> cashItemOption; // 캐시 장비 옵션
 
     @JsonProperty("date_expire")
     private String dateExpire; // 캐시 장비 유효 기간 (expired: 만료, null: 무제한)

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CashItemOption {
+public class ItemOption {
 
     @JsonProperty("option_type")
     private String optionType; // 옵션 타입
