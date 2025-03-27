@@ -5,8 +5,6 @@ import com.project.maplenote.character.domain.character.item.CashItemEquipment;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 /**
  * 장착 캐시 장비 정보
  */
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 public class CharacterCashItemEquipment {
 
     @JsonProperty("date")
-    private LocalDateTime date;  // 조회 기준일
+    private String date;  // 조회 기준일
 
     @JsonProperty("character_gender")
     private String characterGender;  // 캐릭터 성별

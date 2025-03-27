@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 /**
  * 기본 정보
  */
@@ -14,7 +12,7 @@ import java.time.LocalDateTime;
 public class CharacterBasic {
 
     @JsonProperty("date")
-    private LocalDateTime date;  // 조회 기준일 (KST, 일 단위 데이터로 시, 분은 일괄 0으로 표기)
+    private String date;  // 조회 기준일 (KST, 일 단위 데이터로 시, 분은 일괄 0으로 표기)
 
     @JsonProperty("character_name")
     private String characterName;  // 캐릭터 명
@@ -47,7 +45,7 @@ public class CharacterBasic {
     private String characterImage;  // 캐릭터 외형 이미지
 
     @JsonProperty("character_date_create")
-    private LocalDateTime characterDateCreate;  // 캐릭터 생성일 (KST, 일 단위 데이터로 시, 분은 일괄 0으로 표기)
+    private String characterDateCreate;  // 캐릭터 생성일 (KST, 일 단위 데이터로 시, 분은 일괄 0으로 표기)
 
     @JsonProperty("access_flag")
     private String accessFlag;  // 최근 7일간 접속 여부 (true 접속, false 미접속)

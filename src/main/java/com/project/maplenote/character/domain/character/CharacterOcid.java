@@ -8,7 +8,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Character {
+public class CharacterOcid {
 
     private String ocid;
 

@@ -5,7 +5,6 @@ import com.project.maplenote.character.domain.character.stat.FinalStat;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
 public class CharacterStat {
 
     @JsonProperty("date")
-    private LocalDateTime date;  // 조회 기준일
+    private String date;  // 조회 기준일
 
     @JsonProperty("character_class")
     private String characterClass;  // 캐릭터 직업

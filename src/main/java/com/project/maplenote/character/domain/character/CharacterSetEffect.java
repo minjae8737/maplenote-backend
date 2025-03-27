@@ -6,7 +6,6 @@ import com.project.maplenote.character.domain.character.item.SetEffect;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ import java.util.List;
 public class CharacterSetEffect {
 
     @JsonProperty("date")
-    private LocalDateTime date;  // 조회 기준일
+    private String date;  // 조회 기준일
 
     @JsonProperty("SetEffect")
     private List<SetEffect> SetEffect;  // 세트 효과 명

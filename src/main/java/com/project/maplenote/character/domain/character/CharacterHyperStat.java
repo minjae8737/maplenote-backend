@@ -5,8 +5,6 @@ import com.project.maplenote.character.domain.character.stat.HyperStat;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 /**
  * 캐릭터 하이퍼 스탯
  */
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 public class CharacterHyperStat {
 
     @JsonProperty("date")
-    private LocalDateTime date;  // 조회 기준일 (KST, 일 단위 데이터로 시, 분은 일괄 0으로 표기)
+    private String date;  // 조회 기준일 (KST, 일 단위 데이터로 시, 분은 일괄 0으로 표기)
 
     @JsonProperty("character_class")
     private String characterClass;  // 캐릭터 직업

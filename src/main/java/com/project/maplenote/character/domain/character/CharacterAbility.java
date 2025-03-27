@@ -17,7 +17,7 @@ import java.util.List;
 public class CharacterAbility {
 
     @JsonProperty("date")
-    private LocalDateTime date;  // 조회 기준일
+    private String date;  // 조회 기준일
 
     @JsonProperty("ability_grade")
     private String abilityGrade;  // 어빌리티 등급
