@@ -5,6 +5,8 @@ import com.project.maplenote.character.domain.character.stat.HyperStat;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 캐릭터 하이퍼 스탯
  */
@@ -25,19 +27,19 @@ public class CharacterHyperStat {
     private int useAvailableHyperStat;  // 사용 가능한 최대 하이퍼스탯 포인트
 
     @JsonProperty("hyper_stat_preset_1")
-    private HyperStat hyperStatPreset1;  // 1번 프리셋 하이퍼 스탯 정보
+    private List<HyperStat> hyperStatPreset1;  // 1번 프리셋 하이퍼 스탯 정보
 
     @JsonProperty("hyper_stat_preset_1_remain_point")
     private long hyperStatPreset1RemainPoint;  // 1번 프리셋 하이퍼 스탯 잔여 포인트
 
     @JsonProperty("hyper_stat_preset_2")
-    private HyperStat hyperStatPreset2;  // 2번 프리셋 하이퍼 스탯 정보
+    private List<HyperStat> hyperStatPreset2;  // 2번 프리셋 하이퍼 스탯 정보
 
     @JsonProperty("hyper_stat_preset_2_remain_point")
     private long hyperStatPreset2RemainPoint;  // 2번 프리셋 하이퍼 스탯 잔여 포인트
 
     @JsonProperty("hyper_stat_preset_3")
-    private HyperStat hyperStatPreset3;  // 3번 프리셋 하이퍼 스탯 정보
+    private List<HyperStat> hyperStatPreset3;  // 3번 프리셋 하이퍼 스탯 정보
 
     @JsonProperty("hyper_stat_preset_3_remain_point")
     private long hyperStatPreset3RemainPoint;  // 3번 프리셋 하이퍼 스탯 잔여 포인트

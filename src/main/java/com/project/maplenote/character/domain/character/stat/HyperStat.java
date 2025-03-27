@@ -15,10 +15,10 @@ public class HyperStat {
     private String statType;           // 스탯 종류
 
     @JsonProperty("stat_point")
-    private String statPoint;          // 스탯 투자 포인트
+    private Long statPoint;          // 스탯 투자 포인트
 
     @JsonProperty("stat_level")
-    private String statLevel;          // 스탯 레벨
+    private Long statLevel;          // 스탯 레벨
 
     @JsonProperty("stat_increase")
     private String statIncrease;       // 스탯 상승량

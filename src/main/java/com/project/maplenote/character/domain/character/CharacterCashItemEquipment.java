@@ -5,6 +5,8 @@ import com.project.maplenote.character.domain.character.item.CashItemEquipment;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 장착 캐시 장비 정보
  */
@@ -28,27 +30,27 @@ public class CharacterCashItemEquipment {
     private int presetNo;  // 적용 중인 장비 프리셋 번호 (number)
 
     @JsonProperty("cash_item_equipment_base")
-    private CashItemEquipment cashItemEquipmentBase;
+    private List<CashItemEquipment> cashItemEquipmentBase;
 
     @JsonProperty("cash_item_equipment_preset_1")
-    private CashItemEquipment cashItemEquipmentPreset1;   // 1번 코디 프리셋
+    private List<CashItemEquipment> cashItemEquipmentPreset1;   // 1번 코디 프리셋
 
     @JsonProperty("cash_item_equipment_preset_2")
-    private CashItemEquipment cashItemEquipmentPreset2;  // 2번 코디 프리셋
+    private List<CashItemEquipment> cashItemEquipmentPreset2;  // 2번 코디 프리셋
 
     @JsonProperty("cash_item_equipment_preset_3")
-    private CashItemEquipment cashItemEquipmentPreset3; // 3번 코디 프리셋
+    private List<CashItemEquipment> cashItemEquipmentPreset3; // 3번 코디 프리셋
 
     @JsonProperty("additional_cash_item_equipment_base")
-    private CashItemEquipment additionalCashItemEquipmentBase;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드에서 장착 중인 캐시 장비
+    private List<CashItemEquipment> additionalCashItemEquipmentBase;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드에서 장착 중인 캐시 장비
 
     @JsonProperty("additional_cash_item_equipment_preset_1")
-    private CashItemEquipment additionalCashItemEquipmentPreset1;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드의 1번 코디 프리셋
+    private List<CashItemEquipment> additionalCashItemEquipmentPreset1;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드의 1번 코디 프리셋
 
     @JsonProperty("additional_cash_item_equipment_preset_2")
-    private CashItemEquipment additionalCashItemEquipmentPreset2;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드의 2번 코디 프리셋
+    private List<CashItemEquipment> additionalCashItemEquipmentPreset2;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드의 2번 코디 프리셋
 
     @JsonProperty("additional_cash_item_equipment_preset_3")
-    private CashItemEquipment additionalCashItemEquipmentPreset3;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드의 3번 코디 프리셋
+    private List<CashItemEquipment> additionalCashItemEquipmentPreset3;  // 제로인 경우 베타, 엔젤릭버스터인 경우 드레스 업 모드의 3번 코디 프리셋
 
 }

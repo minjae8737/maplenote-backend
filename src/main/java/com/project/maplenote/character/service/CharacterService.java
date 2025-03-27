@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.View;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,16 +44,35 @@ public class CharacterService {
     }
 
     public Mono<CharacterResponseDto> getCharacter(String ocid, String date) {
-        Mono<CharacterBasic> characterBasic = getCharacterBasic(ocid, date);
-        Mono<CharacterPopularity> characterPopularity = getCharacterPopularity(ocid, date);
-        Mono<CharacterStat> characterStat = getCharacterStat(ocid, date);
-        Mono<CharacterItemEquipment> characterItemEquipment = getCharacterItemEquipment(ocid, date);
 
-        return Mono.zip(characterBasic, characterPopularity, characterStat, characterItemEquipment)
+        List<Mono<?>> monos = List.of(
+                getCharacterBasic(ocid, date),
+                getCharacterPopularity(ocid, date),
+                getCharacterStat(ocid, date),
+                getCharacterHyperStat(ocid, date),
+                getCharacterPropensity(ocid, date),
+                getCharacterAbility(ocid, date),
+                getCharacterItemEquipment(ocid, date),
+                getCharacterSymbolEquipment(ocid, date),
+                getCharacterSetEffect(ocid, date),
+                getCharacterCashItemEquipment(ocid, date)
+        );
+
+        return Flux.fromIterable(monos)
+                .delayElements(Duration.ofMillis(200)) // 각 요청 사이 200ms 지연
+                .flatMapSequential(mono -> mono)
+                .collectList()
                 .map(objects -> new CharacterResponseDto(
-                        objects.getT1(),
-                        objects.getT2(),
-                        objects.getT3()
+                        (CharacterBasic) objects.get(0),
+                        (CharacterPopularity) objects.get(1),
+                        (CharacterStat) objects.get(2),
+                        (CharacterHyperStat) objects.get(3),
+                        (CharacterPropensity) objects.get(4),
+                        (CharacterAbility) objects.get(5),
+                        (CharacterItemEquipment) objects.get(6),
+                        (CharacterSymbolEquipment) objects.get(7),
+                        (CharacterSetEffect) objects.get(8),
+                        (CharacterCashItemEquipment) objects.get(9)
                 ));
     }
 
@@ -117,6 +139,51 @@ public class CharacterService {
                 .bodyToMono(CharacterStat.class);
     }
 
+    public Mono<CharacterHyperStat> getCharacterHyperStat(String ocid, String date) {
+        String url = BASEURL + "/hyper-stat";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterHyperStat.class);
+    }
+
+    public Mono<CharacterPropensity> getCharacterPropensity(String ocid, String date) {
+        String url = BASEURL + "/propensity";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterPropensity.class);
+    }
+
+    public Mono<CharacterAbility> getCharacterAbility(String ocid, String date) {
+        String url = BASEURL + "/propensity";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterAbility.class);
+    }
+
     public Mono<CharacterItemEquipment> getCharacterItemEquipment(String ocid, String date) {
         String url = BASEURL + "/item-equipment";
 
@@ -132,5 +199,49 @@ public class CharacterService {
                 .bodyToMono(CharacterItemEquipment.class);
     }
 
+    public Mono<CharacterSymbolEquipment> getCharacterSymbolEquipment(String ocid, String date) {
+        String url = BASEURL + "/symbol-equipment";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterSymbolEquipment.class);
+    }
+
+    public Mono<CharacterSetEffect> getCharacterSetEffect(String ocid, String date) {
+        String url = BASEURL + "/set-effect";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterSetEffect.class);
+    }
+
+    public Mono<CharacterCashItemEquipment> getCharacterCashItemEquipment(String ocid, String date) {
+        String url = BASEURL + "/cashitem-equipment";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterCashItemEquipment.class);
+    }
 
 }
