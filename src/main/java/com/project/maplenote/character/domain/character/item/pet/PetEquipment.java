@@ -1,7 +1,6 @@
 package com.project.maplenote.character.domain.character.item.pet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.project.maplenote.character.domain.character.CharacterPetEquipment;
 import com.project.maplenote.character.domain.character.item.ItemOption;
 import lombok.Getter;
 import lombok.Setter;
