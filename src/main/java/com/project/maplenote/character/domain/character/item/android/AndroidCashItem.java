@@ -2,6 +2,8 @@ package com.project.maplenote.character.domain.character.item.android;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.maplenote.character.domain.character.CharacterAndroidEquipment;
+import com.project.maplenote.character.domain.character.item.CashItemColoringPrism;
+import com.project.maplenote.character.domain.character.item.ItemOption;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +28,7 @@ public class AndroidCashItem {
     private String cashItemDescription;
 
     @JsonProperty("cash_item_option")
-    private List<CharacterAndroidEquipment.CashItemOption> cashItemOption;
+    private List<ItemOption> cashItemOption;
 
     @JsonProperty("date_expire")
     private String dateExpire;
@@ -38,7 +40,7 @@ public class AndroidCashItem {
     private String cashItemLabel;
 
     @JsonProperty("cash_item_coloring_prism")
-    private CharacterAndroidEquipment.CashItemColoringPrism cashItemColoringPrism;
+    private CashItemColoringPrism cashItemColoringPrism;
 
     @JsonProperty("android_item_gender")
     private String androidItemGender;

@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.servlet.View;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,7 +20,6 @@ import java.util.List;
 @Slf4j
 public class CharacterService {
 
-    private final View error;
     @Value("${default.characterName}")
     String defaultcharacterName;
 
@@ -55,12 +53,21 @@ public class CharacterService {
                 getCharacterItemEquipment(ocid, date),
                 getCharacterSymbolEquipment(ocid, date),
                 getCharacterSetEffect(ocid, date),
-                getCharacterCashItemEquipment(ocid, date)
+                getCharacterCashItemEquipment(ocid, date),
+                getCharacterBeautyEquipment(ocid, date),
+                getCharacterAndroidEquipment(ocid, date),
+                getCharacterPetEquipment(ocid, date),
+                getCharacterSkills(ocid, date),
+                getCharacterLinkSkill(ocid, date),
+                getCharacterVMatrix(ocid, date),
+                getCharacterHexaMatrix(ocid, date),
+                getCharacterHexaMatrixStat(ocid, date),
+                getCharacterDojang(ocid, date)
         );
 
         return Flux.fromIterable(monos)
                 .delayElements(Duration.ofMillis(200)) // 각 요청 사이 200ms 지연
-                .flatMapSequential(mono -> mono)
+                .flatMap(mono -> mono, 5)
                 .collectList()
                 .map(objects -> new CharacterResponseDto(
                         (CharacterBasic) objects.get(0),
@@ -72,7 +79,16 @@ public class CharacterService {
                         (CharacterItemEquipment) objects.get(6),
                         (CharacterSymbolEquipment) objects.get(7),
                         (CharacterSetEffect) objects.get(8),
-                        (CharacterCashItemEquipment) objects.get(9)
+                        (CharacterCashItemEquipment) objects.get(9),
+                        (CharacterBeautyEquipment) objects.get(10),
+                        (CharacterAndroidEquipment) objects.get(11),
+                        (CharacterPetEquipment) objects.get(12),
+                        (CharacterSkills) objects.get(13),
+                        (CharacterLinkSkill) objects.get(14),
+                        (CharacterVMatrix) objects.get(15),
+                        (CharacterHexaMatrix) objects.get(16),
+                        (CharacterHexaMatrixStat) objects.get(17),
+                        (CharacterDojang) objects.get(18)
                 ));
     }
 
@@ -273,6 +289,122 @@ public class CharacterService {
                 )
                 .retrieve()
                 .bodyToMono(CharacterAndroidEquipment.class);
+    }
+
+    public Mono<CharacterPetEquipment> getCharacterPetEquipment(String ocid, String date) {
+        String url = BASEURL + "/pet-equipment";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterPetEquipment.class);
+    }
+
+    public Mono<CharacterSkills> getCharacterSkills(String ocid, String date) {
+        List<String> SKILLGRAGELIST = List.of("0", "1", "1.5", "2", "2.5", "3", "4", "hyperpassive", "hyperactive", "5", "6");
+
+        return Flux.fromIterable(SKILLGRAGELIST)
+                .delayElements(Duration.ofMillis(200))
+                .flatMapSequential(skillGrade -> getCharacterSkill(ocid, date, skillGrade), 5)
+                .collectList()
+                .map(characterSkills -> new CharacterSkills(characterSkills));
+    }
+
+    public Mono<CharacterSkill> getCharacterSkill(String ocid, String date, String skillGrade) {
+        String url = BASEURL + "/skill";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .queryParam("character_skill_grade", skillGrade)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterSkill.class);
+    }
+
+    public Mono<CharacterLinkSkill> getCharacterLinkSkill(String ocid, String date) {
+        String url = BASEURL + "/link-skill";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterLinkSkill.class);
+    }
+
+    public Mono<CharacterVMatrix> getCharacterVMatrix(String ocid, String date) {
+        String url = BASEURL + "/vmatrix";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterVMatrix.class);
+    }
+
+    public Mono<CharacterHexaMatrix> getCharacterHexaMatrix(String ocid, String date) {
+        String url = BASEURL + "/hexamatrix";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterHexaMatrix.class);
+    }
+
+    public Mono<CharacterHexaMatrixStat> getCharacterHexaMatrixStat(String ocid, String date) {
+        String url = BASEURL + "/hexamatrix-stat";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterHexaMatrixStat.class);
+    }
+
+    public Mono<CharacterDojang> getCharacterDojang(String ocid, String date) {
+        String url = BASEURL + "/dojang";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(CharacterDojang.class);
     }
 
 }
