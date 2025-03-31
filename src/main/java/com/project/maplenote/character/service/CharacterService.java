@@ -2,6 +2,7 @@ package com.project.maplenote.character.service;
 
 import com.project.maplenote.character.domain.Dto.CharacterResponseDto;
 import com.project.maplenote.character.domain.character.*;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ public class CharacterService {
 
     private final WebClient webClient;
 
+    @RateLimiter(name = "myRateLimiter")
     public Mono<CharacterResponseDto> getCharacterData(String characterName) {
 
         LocalDateTime nowDate = LocalDateTime.now();
@@ -66,8 +68,7 @@ public class CharacterService {
         );
 
         return Flux.fromIterable(monos)
-                .delayElements(Duration.ofMillis(200)) // 각 요청 사이 200ms 지연
-                .flatMap(mono -> mono, 5)
+                .concatMap(mono -> mono.delayElement(Duration.ofMillis(200))) // 순차 실행
                 .collectList()
                 .map(objects -> new CharacterResponseDto(
                         (CharacterBasic) objects.get(0),
@@ -311,7 +312,7 @@ public class CharacterService {
 
         return Flux.fromIterable(SKILLGRAGELIST)
                 .delayElements(Duration.ofMillis(200))
-                .flatMapSequential(skillGrade -> getCharacterSkill(ocid, date, skillGrade), 5)
+                .concatMap(skillGrade -> getCharacterSkill(ocid, date, skillGrade))
                 .collectList()
                 .map(characterSkills -> new CharacterSkills(characterSkills));
     }

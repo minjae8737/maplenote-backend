@@ -1,11 +1,14 @@
 package com.project.maplenote.global.config;
 
+
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
+@Slf4j
 @Configuration
 @RequiredArgsConstructor
 public class WebClientConfig {
@@ -26,4 +29,5 @@ public class WebClientConfig {
                 .codecs(config -> config.defaultCodecs().maxInMemorySize(CODECS_SIZE))
                 .build();
     }
+
 }
