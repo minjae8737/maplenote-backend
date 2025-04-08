@@ -21,9 +21,6 @@ import java.util.List;
 @Slf4j
 public class CharacterService {
 
-    @Value("${default.characterName}")
-    String defaultcharacterName;
-
     String BASEURL = "/character";
 
     private final WebClient webClient;
@@ -34,10 +31,7 @@ public class CharacterService {
         LocalDateTime nowDate = LocalDateTime.now();
         String defaultDate = nowDate.minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")); // 당일은 조회 불가
 
-        //FIXME 나중에 지울것
-        characterName = defaultcharacterName;
-
-        return getOcid(defaultcharacterName)
+        return getOcid(characterName)
                 .flatMap(characterOcid -> getCharacter(characterOcid.getOcid(), defaultDate)) // FIXME 나중에 date 입력받아서 넘길수도 있게 고치기
                 .doOnSuccess(characterResponseDto -> log.info("############ Success get CharacterData"))
                 .doOnError(error -> log.info("############ Fail get CharacterData : {}", error.getMessage()));
@@ -100,7 +94,7 @@ public class CharacterService {
                 .get()
                 .uri(uriBuilder -> uriBuilder
                         .path(url)
-                        .queryParam("character_name", defaultcharacterName) // FIXME defaultcharacterName 바꿔야함
+                        .queryParam("character_name", characterName)
                         .build()
                 )
                 .retrieve()
@@ -187,7 +181,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterAbility> getCharacterAbility(String ocid, String date) {
-        String url = BASEURL + "/propensity";
+        String url = BASEURL + "/ability";
 
         return webClient
                 .get()
