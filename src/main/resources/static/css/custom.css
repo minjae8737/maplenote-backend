@@ -1,0 +1,153 @@
+:root {
+    /* 다크모드 기본 색상 */
+    --background-default: #212121;
+    --background-paper: #303030;
+    --divider-color: #3a3a3a;
+    --text-primary: #b4b4b4;
+    --text-secondary: #888888;
+
+    /* 추가 색상 */
+    --starforce-color: #ffc200;
+    --starforce-background: rgb(160, 123, 1);
+
+    --legendary: #00ff00;
+    --legendary-back: rgb(1, 151, 1);
+    --unique: #ffcc00;
+    --unique-back: rgb(147, 118, 0);
+    --epic: #cc66ff;
+    --epic-back: rgb(108, 53, 135);
+    --rare: #60fcf8;
+    --rare-back: rgb(52, 137, 135);
+    --basic: #e6e6e6;
+}
+
+/* 전체 배경 */
+body {
+    background-color: var(--background-default);
+    color: var(--basic);
+}
+
+/* 캐릭터 전체 박스 */
+.character-container {
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--background-paper);
+    border-radius: 8px;
+    border: 1px solid var(--divider-color);
+}
+
+/* 장비 카드 */
+.equip-card {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    align-items: center;
+    background-color: var(--background-paper);
+    border-radius: 8px;
+    border: 1px solid var(--divider-color);
+}
+
+.equip-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.equip-info {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* 장비 이미지 */
+.equip-img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    align-self: center;
+}
+
+/* 스타포스 라벨 */
+.starforce-label {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background-color: var(--starforce-background);
+    color: var(--starforce-color);
+    font-size: 0.75rem;
+}
+
+/* 옵션 등급별 라벨 */
+.equip-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+/* 등급별 배경 + 글자색 클래스 */
+.grade-legendary {
+    color: var(--legendary);
+}
+
+.grade-legendary-back {
+    background-color: var(--legendary-back);
+}
+
+.grade-unique {
+    color: var(--unique);
+}
+
+.grade-unique-back {
+    background-color: var(--unique-back);
+}
+
+.grade-epic {
+    color: var(--epic);
+}
+
+.grade-epic-back {
+    background-color: var(--epic-back);
+}
+
+.grade-rare {
+    color: var(--rare);
+}
+
+.grade-rare-back {
+    background-color: var(--rare-back);
+}
+
+.character-name {
+    font-size: 24px;
+    font-weight: 800;
+    color: white;
+}
+
+.stat-header {
+
+}
+
+/* 스탯 라벨 */
+.stat-label {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* 스탯 값 */
+.stat-value {
+    font-weight: 400;
+    font-size: 14px;
+    color: white;
+}
+
+/*!* 뱃지 *!*/
+/*.badge {*/
+/*    color: var(--text-primary);*/
+/*    background-color: var(--text-secondary);*/
+/*    border-radius: 4px;*/
+/*}*/

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>메이플노트</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../static/css/custom.css" th:href="@{/css/custom.css}">
+
+</head>
+<body>
+
+<main>
+    <section>
+        <!-- 캐릭터 기본 데이터 -->
+        <div class="container">
+            <div class="character-container row justify-content-center align-items-center">
+                <!-- 캐릭터 이미지 -->
+                <div class="col-12 col-sm-6">
+                    <img class="float-end" id="characterImage" src="" alt="캐릭터 이미지">
+                </div>
+
+                <!-- 캐릭터 정보 -->
+                <div class="col-12 col-sm-6">
+                    <div class="col">
+                        <span class="character-name" id="characterName"></span>
+                        <span id="worldName"></span>
+                    </div>
+                    <div class="col">
+                        <span id="characterLevel"></span>
+                        <span id="characterClass"></span>
+                        <span id="popularity"></span>
+                    </div>
+                    <span id="createDate"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <!-- 캐릭터 스텟창 -->
+        <div class="character-container justify-content-center align-items-center">
+            <!-- 캐릭터 스텟 -->
+            <div class="row">
+                <div class="col-12">
+                    <span class="stat-label float-start" id="combat-power">전투력</span>
+                    <span class="stat-value float-end" id="combat-power-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="attack-power">공격력</span>
+                    <span class="stat-value float-end" id="attack-power-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="magic-power">마력</span>
+                    <span class="stat-value float-end" id="magic-power-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="damage">데미지</span>
+                    <span class="stat-value float-end" id="damage-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="boss-damage">보스 몬스터 데미지</span>
+                    <span class="stat-value float-end"
+                          id="boss-damage-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="final-damage">최종 데미지</span>
+                    <span class="stat-value float-end" id="final-damage-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="ignore-defense">방어율 무시</span>
+                    <span class="stat-value float-end"
+                          id="ignore-defense-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="critical-rate">크리티컬 확률</span>
+                    <span class="stat-value float-end"
+                          id="critical-rate-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="critical-damage">크리티컬 데미지</span>
+                    <span class="stat-value float-end"
+                          id="critical-damage-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="abnormal-resistance">상태이상 내성</span>
+                    <span class="stat-value float-end"
+                          id="abnormal-resistance-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="starforce">스타포스</span>
+                    <span class="stat-value float-end" id="starforce-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="arcane-force">아케인포스</span>
+                    <span class="stat-value float-end" id="arcane-force-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="authentic-force">어센틱포스</span>
+                    <span class="stat-value float-end"
+                          id="authentic-force-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="str">STR</span>
+                    <span class="stat-value float-end" id="str-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="dex">DEX</span>
+                    <span class="stat-value float-end" id="dex-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="int">INT</span>
+                    <span class="stat-value float-end" id="int-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="luk">LUK</span>
+                    <span class="stat-value float-end" id="luk-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="hp">HP</span>
+                    <span class="stat-value float-end" id="hp-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="mp">MP</span>
+                    <span class="stat-value float-end" id="mp-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="item-drop-rate">아이템 드롭률</span>
+                    <span class="stat-value float-end"
+                          id="item-drop-rate-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="meso-rate">메소 획득량</span>
+                    <span class="stat-value float-end" id="meso-rate-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="buff-duration">버프 지속시간</span>
+                    <span class="stat-value float-end"
+                          id="buff-duration-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="normal-monster-damage">일반 몬스터 데미지</span>
+                    <span class="stat-value float-end" id="normal-monster-damage-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="cooldown-reduction">재사용 대기시간 감소</span>
+                    <span class="stat-value float-end" id="cooldown-reduction-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="attribute-resistance-ignore">속성 내성 무시</span>
+                    <span class="stat-value float-end" id="attribute-resistance-ignore-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="additional-exp">추가 경험치 획득</span>
+                    <span class="stat-value float-end"
+                          id="additional-exp-value"></span>
+                </div>
+
+                <div class="col-12">
+                    <span class="stat-label float-start" id="summon-duration">소환수 지속시간 증가</span>
+                    <span class="stat-value float-end" id="summon-duration-value"></span>
+                </div>
+
+            </div>
+            <!-- 어빌리티 -->
+            <div class="row">
+                <span>어빌리티</span>
+                <div class="col">
+                    <button id="ability-btn1" class="btn btn-sm btn-primary">프리셋1</button>
+                    <button id="ability-btn2" class="btn btn-sm btn-primary">프리셋2</button>
+                    <button id="ability-btn3" class="btn btn-sm btn-primary">프리셋3</button>
+                </div>
+                <div class="col-12" id="ability-parent">
+                </div>
+            </div>
+            <!-- 하이퍼 스텟 -->
+            <div class="row">
+                <span>하이퍼 스텟</span>
+                <div class="col">
+                    <button id="hyper-stat-btn1" class="btn btn-sm btn-primary">프리셋1</button>
+                    <button id="hyper-stat-btn2" class="btn btn-sm btn-primary">프리셋2</button>
+                    <button id="hyper-stat-btn3" class="btn btn-sm btn-primary">프리셋3</button>
+                </div>
+                <div class="col-12" id="hyper-stat-parent">
+                    <div class="col-12">
+                        <span class="badge text-bg-secondary">Lv.4</span>
+                        <span class="stat-value">지력 150 증가</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <!--  장비창   -->
+        <div class="character-container justify-content-center align-items-center">
+            <!-- 헤더(장비 / 캐시,펫) ,프리셋 버튼 -->
+            <div class="row gap-1">
+                <button class="col btn btn-primary">장비</button>
+                <button class="col btn btn-primary">캐시/펫</button>
+            </div>
+            <div class="row justify-content-end mt-1 gap-1">
+                <button id="equipment-btn1" class="col-1 btn btn-sm btn-primary">프리셋1</button>
+                <button id="equipment-btn2" class="col-1 btn btn-sm btn-primary">프리셋2</button>
+                <button id="equipment-btn3" class="col-1 btn btn-sm btn-primary">프리셋3</button>
+            </div>
+            <div id="equip-parent" class="mt-1">
+                <div class="equip-card">
+                    <div class="equip-content">
+                        <img src="https://open.api.nexon.com/static/maplestory/item/icon/KEPCIAHJ" class="equip-img" alt="">
+                        <div class="equip-info">
+                            <span class="starforce-label">★17</span>
+                            <span>하이네스 던위치햇</span>
+                            <span class="equip-label">INT : +6%</span>
+                            <span class="equip-label">INT : +6%</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+
+<script src="../../static/js/character-detail.js" th:src="@{/js/character-detail.js}"></script>
+</body>
+</html>
