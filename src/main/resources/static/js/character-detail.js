@@ -54,12 +54,12 @@ const optionMap = {
     "모든 스킬의 재사용 대기시간  -1초(10초 이하는 10%감소, 5초 미만으로 감소 불가)": "쿨감 -1초",
 };
 
-const gradeClassMap = {
-    '레전드리': ['grade-legendary', 'grade-legendary-back'],
-    '유니크': ['grade-unique', 'grade-unique-back'],
-    '에픽': ['grade-epic', 'grade-epic-back'],
-    '레어': ['grade-rare', 'grade-rare-back'],
-};
+// const gradeClassMap = {
+//     '레전드리': ['grade-legendary', 'grade-legendary-back'],
+//     '유니크': ['grade-unique', 'grade-unique-back'],
+//     '에픽': ['grade-epic', 'grade-epic-back'],
+//     '레어': ['grade-rare', 'grade-rare-back'],
+// };
 
 const grade = [
     {id: "레전드리", fontColor: "grade-legendary", backColor: "grade-legendary-back"},
@@ -278,7 +278,7 @@ function updateEquipment(presetNum) {
             `${getEquipOptionNameShorten(equipment.potential_option_2)} ` +
             `${getEquipOptionNameShorten(equipment?.potential_option_3 || '')}`;
         const additionalOptionText =
-            `${getEquipOptionNameShorten(equipment.additional_potential_option_1)}` +
+            `${getEquipOptionNameShorten(equipment.additional_potential_option_1)} ` +
             `${getEquipOptionNameShorten(equipment.additional_potential_option_2)} ` +
             `${getEquipOptionNameShorten(equipment.additional_potential_option_3) || ''}`;
 

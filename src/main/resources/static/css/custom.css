@@ -40,9 +40,9 @@ body {
 /* 장비 카드 */
 .equip-card {
     width: 100%;
-    height: auto;
+    height: 120px;
     padding: 1rem;
-    align-items: center;
+    align-content: center;
     background-color: var(--background-paper);
     border-radius: 8px;
     border: 1px solid var(--divider-color);
@@ -84,8 +84,7 @@ body {
 .equip-label {
     display: inline-flex;
     align-items: center;
-    padding: 1px 6px;
-    border-radius: 4px;
+    /*padding: 1px 6px;*/
     font-size: 0.75rem;
 }
 
