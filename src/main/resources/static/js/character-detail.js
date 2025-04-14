@@ -285,7 +285,9 @@ function updateEquipment(presetNum) {
         html += `
                 <div class="equip-card">
                     <div class="equip-content">
-                        <img src="${equipment.item_icon}" class="equip-img" alt="">
+                        <div class="equip-img-wrapper">
+                            <img src="${equipment.item_icon}" class="equip-img" alt="">
+                        </div>
                         <div class="equip-info">
                             <span class="${starforceTextClass}">${starforceText}</span>
                             <span>${equipment.item_name}</span>

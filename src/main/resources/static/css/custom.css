@@ -59,6 +59,15 @@ body {
     flex-direction: column;
 }
 
+.equip-img-wrapper {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
 
 /* 장비 이미지 */
 .equip-img {
