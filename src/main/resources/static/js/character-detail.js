@@ -316,4 +316,48 @@ const getEquipOptionNameShorten = (optionName) => {
 };
 
 
+const ctx = document.getElementById('expChart').getContext('2d');
+
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['STR', 'DEX', 'INT', 'LUK', 'HP', 'MP'],
+        datasets: [{
+            label: '능력치',
+            data: [120, 90, 150, 70, 200, 180],
+            backgroundColor: 'rgba(75,192,192,0.7)',
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: '#fff'
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#fff'
+                }
+            },
+            y: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#fff'
+                }
+            }
+        }
+    }
+});
+
+
 window.onload = loadCharacterData;
