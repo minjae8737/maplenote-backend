@@ -2,10 +2,10 @@ package com.project.maplenote.character.service;
 
 import com.project.maplenote.character.domain.Dto.CharacterResponseDto;
 import com.project.maplenote.character.domain.character.*;
+import com.project.maplenote.character.repository.CharacterExpRepository;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -23,6 +23,7 @@ public class CharacterService {
 
     String BASEURL = "/character";
 
+    private final CharacterExpRepository characterExpRepository;
     private final WebClient webClient;
 
     @RateLimiter(name = "myRateLimiter")
@@ -83,7 +84,8 @@ public class CharacterService {
                         (CharacterVMatrix) objects.get(15),
                         (CharacterHexaMatrix) objects.get(16),
                         (CharacterHexaMatrixStat) objects.get(17),
-                        (CharacterDojang) objects.get(18)
+                        (CharacterDojang) objects.get(18),
+                        findCharacterExp(ocid)
                 ));
     }
 
@@ -117,7 +119,8 @@ public class CharacterService {
                         .build()
                 )
                 .retrieve()
-                .bodyToMono(CharacterBasic.class);
+                .bodyToMono(CharacterBasic.class)
+                .doOnNext(characterBasic -> saveCharacterExp(characterBasic, ocid));
     }
 
     public Mono<CharacterPopularity> getCharacterPopularity(String ocid, String date) {
@@ -402,4 +405,28 @@ public class CharacterService {
                 .bodyToMono(CharacterDojang.class);
     }
 
+
+    public void saveCharacterExp(CharacterBasic characterBasic, String ocid) {
+
+        // date ,ocid 기준 데이터가 있는지 체크
+        boolean existed = characterExpRepository.existsByOcidAndDate(ocid, characterBasic.getDate());
+
+        // 없다면 데이터 저장
+        if (!existed) {
+            CharacterExp exp = CharacterExp.builder()
+                    .ocid(ocid)
+                    .date(characterBasic.getDate())
+                    .characterLevel(characterBasic.getCharacterLevel())
+                    .characterExp(characterBasic.getCharacterExp())
+                    .characterExpRate(characterBasic.getCharacterExpRate())
+                    .build();
+
+            characterExpRepository.save(exp);
+        }
+
+    }
+
+    public List<CharacterExp> findCharacterExp(String ocid) {
+        return characterExpRepository.findAllByOcid(ocid);
+    }
 }

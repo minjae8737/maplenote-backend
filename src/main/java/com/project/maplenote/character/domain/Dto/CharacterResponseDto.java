@@ -4,6 +4,8 @@ import com.project.maplenote.character.domain.character.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class CharacterResponseDto {
@@ -27,8 +29,9 @@ public class CharacterResponseDto {
     private CharacterHexaMatrix characterHexaMatrix;
     private CharacterHexaMatrixStat characterHexaMatrixStat;
     private CharacterDojang characterDojang;
+    private List<CharacterExp> characterExps;
 
-    public CharacterResponseDto(CharacterBasic characterBasic, CharacterPopularity characterPopularity, CharacterStat characterStat, CharacterHyperStat characterHyperStat, CharacterPropensity characterPropensity, CharacterAbility characterAbility, CharacterItemEquipment characterItemEquipment, CharacterSymbolEquipment characterSymbolEquipment, CharacterSetEffect characterSetEffect, CharacterCashItemEquipment characterCashItemEquipment, CharacterBeautyEquipment characterBeautyEquipment, CharacterAndroidEquipment characterAndroidEquipment, CharacterPetEquipment characterPetEquipment, CharacterSkills characterSkills, CharacterLinkSkill characterLinkSkill, CharacterVMatrix characterVMatrix, CharacterHexaMatrix characterHexaMatrix, CharacterHexaMatrixStat characterHexaMatrixStat, CharacterDojang characterDojang) {
+    public CharacterResponseDto(CharacterBasic characterBasic, CharacterPopularity characterPopularity, CharacterStat characterStat, CharacterHyperStat characterHyperStat, CharacterPropensity characterPropensity, CharacterAbility characterAbility, CharacterItemEquipment characterItemEquipment, CharacterSymbolEquipment characterSymbolEquipment, CharacterSetEffect characterSetEffect, CharacterCashItemEquipment characterCashItemEquipment, CharacterBeautyEquipment characterBeautyEquipment, CharacterAndroidEquipment characterAndroidEquipment, CharacterPetEquipment characterPetEquipment, CharacterSkills characterSkills, CharacterLinkSkill characterLinkSkill, CharacterVMatrix characterVMatrix, CharacterHexaMatrix characterHexaMatrix, CharacterHexaMatrixStat characterHexaMatrixStat, CharacterDojang characterDojang, List<CharacterExp> characterExps) {
         this.characterBasic = characterBasic;
         this.characterPopularity = characterPopularity;
         this.characterStat = characterStat;
@@ -48,5 +51,7 @@ public class CharacterResponseDto {
         this.characterHexaMatrix = characterHexaMatrix;
         this.characterHexaMatrixStat = characterHexaMatrixStat;
         this.characterDojang = characterDojang;
+        this.characterExps = characterExps;
     }
+
 }
