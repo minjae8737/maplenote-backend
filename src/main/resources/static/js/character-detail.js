@@ -124,7 +124,11 @@ function updateCharacterData() {
     updateHyperStat(characterData.characterHyperStat.use_preset_no);
 
     // 장비 목록
-    updateEquipment(characterData.characterItemEquipment.preset_no)
+    updateEquipment(characterData.characterItemEquipment.preset_no);
+
+    //exp 히스토리
+    updateExpChart();
+
 }
 
 // 스탯 가져오는 함수
@@ -315,16 +319,34 @@ const getEquipOptionNameShorten = (optionName) => {
     return `${shortName} ${value}`.trim();
 };
 
+function updateExpChart() {
+    const expDatas = characterData.characterExps.toReversed();
+    let explabel = [];
+    let exps = [];
+
+    for (const expData of expDatas) {
+        explabel.push(formattingDate(expData.date));
+        exps.push(expData.character_exp_rate);
+    }
+
+    expChart.data.labels = explabel;
+    expChart.data.datasets[0].data = exps;
+    expChart.update();
+}
+
+function formattingDate(date) {
+    return date.substring(8, 10) + "일";
+}
 
 const ctx = document.getElementById('expChart').getContext('2d');
 
-const myChart = new Chart(ctx, {
+const expChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['STR', 'DEX', 'INT', 'LUK', 'HP', 'MP'],
+        labels: [],  // x축
         datasets: [{
-            label: '능력치',
-            data: [120, 90, 150, 70, 200, 180],
+            label: 'exp',
+            data: [],  // 데이터
             backgroundColor: 'rgba(75,192,192,0.7)',
             borderRadius: 6
         }]
@@ -332,6 +354,13 @@ const myChart = new Chart(ctx, {
     options: {
         responsive: true,
         plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return context.dataset.label + ': ' + context.parsed.y + '%';
+                    }
+                }
+            },
             legend: {
                 labels: {
                     color: '#fff'
@@ -348,6 +377,8 @@ const myChart = new Chart(ctx, {
                 }
             },
             y: {
+                min: 0,
+                max: 100,
                 grid: {
                     display: false
                 },
