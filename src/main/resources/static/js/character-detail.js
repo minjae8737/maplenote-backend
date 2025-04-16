@@ -92,6 +92,7 @@ const expChart = new Chart(ctx, {
                 }
             },
             legend: {
+                display: false,
                 labels: {
                     color: '#fff'
                 }
