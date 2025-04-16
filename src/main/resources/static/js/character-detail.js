@@ -68,6 +68,58 @@ const grade = [
     {id: "레어", fontColor: "grade-rare", backColor: "grade-rare-back"},
 ]
 
+const ctx = document.getElementById('expChart').getContext('2d');
+
+const expChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [],  // x축
+        datasets: [{
+            label: 'exp',
+            data: [],  // 데이터
+            backgroundColor: 'rgba(75,192,192,0.7)',
+            borderRadius: 6
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return context.dataset.label + ': ' + context.parsed.y + '%';
+                    }
+                }
+            },
+            legend: {
+                labels: {
+                    color: '#fff'
+                }
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#fff'
+                }
+            },
+            y: {
+                min: 0,
+                max: 100,
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#fff'
+                }
+            }
+        }
+    }
+});
+
 async function loadCharacterData() {
     const nickname = decodeURIComponent(window.location.pathname.split('/').pop());
 
@@ -337,58 +389,6 @@ function updateExpChart() {
 function formattingDate(date) {
     return date.substring(8, 10) + "일";
 }
-
-const ctx = document.getElementById('expChart').getContext('2d');
-
-const expChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: [],  // x축
-        datasets: [{
-            label: 'exp',
-            data: [],  // 데이터
-            backgroundColor: 'rgba(75,192,192,0.7)',
-            borderRadius: 6
-        }]
-    },
-    options: {
-        responsive: true,
-        plugins: {
-            tooltip: {
-                callbacks: {
-                    label: function (context) {
-                        return context.dataset.label + ': ' + context.parsed.y + '%';
-                    }
-                }
-            },
-            legend: {
-                labels: {
-                    color: '#fff'
-                }
-            }
-        },
-        scales: {
-            x: {
-                grid: {
-                    display: false
-                },
-                ticks: {
-                    color: '#fff'
-                }
-            },
-            y: {
-                min: 0,
-                max: 100,
-                grid: {
-                    display: false
-                },
-                ticks: {
-                    color: '#fff'
-                }
-            }
-        }
-    }
-});
 
 
 window.onload = loadCharacterData;
