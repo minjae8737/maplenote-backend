@@ -7,6 +7,7 @@ import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -406,6 +407,7 @@ public class CharacterService {
     }
 
 
+    @Transactional
     public void saveCharacterExp(CharacterBasic characterBasic, String ocid) {
 
         // date ,ocid 기준 데이터가 있는지 체크
@@ -426,6 +428,7 @@ public class CharacterService {
 
     }
 
+    @Transactional(readOnly = true)
     public List<CharacterExp> findCharacterExp(String ocid) {
         return characterExpRepository.findAllByOcid(ocid);
     }
