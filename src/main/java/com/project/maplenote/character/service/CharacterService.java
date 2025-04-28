@@ -42,6 +42,21 @@ public class CharacterService {
                 .doOnError(error -> log.info("############ Fail get CharacterData : {}", error.getMessage()));
     }
 
+    public Mono<CharacterOcid> getOcid(String characterName) {
+        String cacheKey = characterName;
+
+        return redisTemplate.opsForValue().get(cacheKey)
+                .cast(CharacterOcid.class)
+                .switchIfEmpty(
+                        getOcidFromApi(characterName)
+                                .flatMap(characterOcid -> redisTemplate
+                                        .opsForValue()
+                                        .set(cacheKey, characterOcid)
+                                        .thenReturn(characterOcid)
+                                )
+                );
+    }
+
     public Mono<CharacterResponseDto> getCharacter(String ocid, String date) {
         String cacheKey = "character:" + ocid;
 
@@ -108,7 +123,7 @@ public class CharacterService {
                 ));
     }
 
-    public Mono<CharacterOcid> getOcid(String characterName) {
+    public Mono<CharacterOcid> getOcidFromApi(String characterName) {
         String url = "/id";
 
         return webClient
