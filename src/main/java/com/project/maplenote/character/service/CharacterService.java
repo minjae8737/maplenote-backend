@@ -6,6 +6,7 @@ import com.project.maplenote.character.repository.CharacterExpRepository;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -26,6 +27,8 @@ public class CharacterService {
 
     private final CharacterExpRepository characterExpRepository;
     private final WebClient webClient;
+    private final ReactiveRedisTemplate<String, Object> redisTemplate;
+
 
     @RateLimiter(name = "myRateLimiter")
     public Mono<CharacterResponseDto> getCharacterData(String characterName) {
@@ -40,6 +43,21 @@ public class CharacterService {
     }
 
     public Mono<CharacterResponseDto> getCharacter(String ocid, String date) {
+        String cacheKey = "character:" + ocid;
+
+        return redisTemplate.opsForValue().get(cacheKey)
+                .cast(CharacterResponseDto.class)
+                .switchIfEmpty(
+                        getCharacterFromApi(ocid, date)
+                                .flatMap(character -> redisTemplate
+                                        .opsForValue()
+                                        .set(cacheKey, character, Duration.ofMinutes(15)) // TTL 설정
+                                        .thenReturn(character)
+                                )
+                );
+    }
+
+    public Mono<CharacterResponseDto> getCharacterFromApi(String ocid, String date) {
 
         List<Mono<?>> monos = List.of(
                 getCharacterBasic(ocid, date),

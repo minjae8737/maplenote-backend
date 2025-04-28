@@ -2,10 +2,12 @@ package com.project.maplenote.character.domain.character.item.pet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PetAutoSkill {
     @JsonProperty("skill_1")
     private String skill1; // 첫 번째 자동 스킬

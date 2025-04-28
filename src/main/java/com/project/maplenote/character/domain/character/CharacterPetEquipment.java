@@ -3,10 +3,12 @@ package com.project.maplenote.character.domain.character;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.maplenote.character.domain.character.item.pet.Pet;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CharacterPetEquipment {
 
     @JsonProperty("date")

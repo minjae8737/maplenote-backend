@@ -2,12 +2,14 @@ package com.project.maplenote.character.domain.character.item;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class SetEffect {
 
     @JsonProperty("set_name")

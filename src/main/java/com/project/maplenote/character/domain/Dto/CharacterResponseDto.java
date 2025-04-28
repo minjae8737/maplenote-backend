@@ -2,12 +2,14 @@ package com.project.maplenote.character.domain.Dto;
 
 import com.project.maplenote.character.domain.character.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CharacterResponseDto {
 
     private CharacterBasic characterBasic;

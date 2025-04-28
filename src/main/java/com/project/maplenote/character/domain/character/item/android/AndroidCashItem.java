@@ -5,12 +5,14 @@ import com.project.maplenote.character.domain.character.CharacterAndroidEquipmen
 import com.project.maplenote.character.domain.character.item.CashItemColoringPrism;
 import com.project.maplenote.character.domain.character.item.ItemOption;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class AndroidCashItem {
     @JsonProperty("cash_item_equipment_part")
     private String cashItemEquipmentPart;

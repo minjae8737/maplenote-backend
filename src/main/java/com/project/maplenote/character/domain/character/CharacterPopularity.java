@@ -1,6 +1,7 @@
 package com.project.maplenote.character.domain.character;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class CharacterPopularity {
     private String date;     // 조회 기준일
     private long popularity;        // 인기도

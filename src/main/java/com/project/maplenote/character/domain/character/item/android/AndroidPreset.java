@@ -5,10 +5,12 @@ import com.project.maplenote.character.domain.character.item.CharacterFace;
 import com.project.maplenote.character.domain.character.item.CharacterHair;
 import com.project.maplenote.character.domain.character.item.CharacterSkin;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class AndroidPreset {
     @JsonProperty("android_name")
     private String androidName;

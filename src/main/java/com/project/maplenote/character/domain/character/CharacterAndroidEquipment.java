@@ -5,12 +5,14 @@ import com.project.maplenote.character.domain.character.item.*;
 import com.project.maplenote.character.domain.character.item.android.AndroidCashItem;
 import com.project.maplenote.character.domain.character.item.android.AndroidPreset;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CharacterAndroidEquipment {
 
     @JsonProperty("date")
