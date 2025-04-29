@@ -30,7 +30,9 @@
                     </div>
                     <div class="col">
                         <span id="characterLevel"></span>
+                        <span class="divider"></span>
                         <span id="characterClass"></span>
+                        <span class="divider"></span>
                         <span id="popularity"></span>
                     </div>
                     <span id="createDate"></span>
@@ -243,7 +245,7 @@
                         <button id="equipment-btn2" class="col-1 btn btn-sm btn-primary">프리셋2</button>
                         <button id="equipment-btn3" class="col-1 btn btn-sm btn-primary">프리셋3</button>
                     </div>
-                    <div id="equip-parent" class="mt-1">
+                    <div id="equip-parent" class="mt-1 row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-2">
 
                         <!--                <div class="equip-card">-->
                         <!--                    <div class="equip-content">-->
@@ -287,6 +289,7 @@
         crossorigin="anonymous"></script>
 
 <script src="../../static/js/character-detail.js" th:src="@{/js/character-detail.js}"></script>
+<script src="../../static/js/character-data.js"></script>
 
 </body>
 </html>

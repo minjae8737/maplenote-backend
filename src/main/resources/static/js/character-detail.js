@@ -1,4 +1,5 @@
 let characterData = null;
+let isLocal = window.location.hostname === "localhost" && window.location.port === "63342";  // IDE로 파일을 열었는지 확인
 
 const stats = [
     {id: "combat-power-value", name: "전투력"},
@@ -125,8 +126,14 @@ async function loadCharacterData() {
     const nickname = decodeURIComponent(window.location.pathname.split('/').pop());
 
     try {
-        const response = await fetch(`/api/character/${nickname}`);
-        characterData = await response.json();
+        if (isLocal){
+            // FIXME 개발용 더미데이터 나중에 삭제
+            // 개발환경시 더미데이터 사용
+            characterData = dummyCharacterData;
+        } else {
+            const response = await fetch(`/api/character/${nickname}`);
+            characterData = await response.json();
+        }
         init();
         updateCharacterData();
 
@@ -165,7 +172,7 @@ function updateCharacterData() {
     document.getElementById('characterLevel').textContent = `Lv. ${characterData.characterBasic.character_level}`;
     document.getElementById('characterClass').textContent = characterData.characterBasic.character_class;
     document.getElementById('createDate').textContent = convertDate(characterData.characterBasic.character_date_create);
-    document.getElementById('popularity').textContent = characterData.characterPopularity.popularity;
+    document.getElementById('popularity').textContent = `인기도 ${characterData.characterPopularity.popularity}`;
 
     // 캐릭터 스텟
     updateStat();
@@ -340,16 +347,18 @@ function updateEquipment(presetNum) {
             `${getEquipOptionNameShorten(equipment.additional_potential_option_3) || ''}`;
 
         html += `
-                <div class="equip-card">
-                    <div class="equip-content">
-                        <div class="equip-img-wrapper">
-                            <img src="${equipment.item_icon}" class="equip-img" alt="">
-                        </div>
-                        <div class="equip-info">
-                            <span class="${starforceTextClass}">${starforceText}</span>
-                            <span>${equipment.item_name}</span>
-                            <span class="${potentialGradeClass}">${potentialOptionText}</span>
-                            <span class="${additionalGradeClass}">${additionalOptionText}</span>
+                <div class="col">
+                    <div class="equip-card">
+                        <div class="equip-content">
+                            <div class="equip-img-wrapper">
+                                <img src="${equipment.item_icon}" class="equip-img" alt="">
+                            </div>
+                            <div class="equip-info">
+                                <span class="${starforceTextClass}">${starforceText}</span>
+                                <span>${equipment.item_name}</span>
+                                <span class="${potentialGradeClass}">${potentialOptionText}</span>
+                                <span class="${additionalGradeClass}">${additionalOptionText}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

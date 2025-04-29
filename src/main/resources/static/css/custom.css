@@ -153,6 +153,13 @@ body {
     color: white;
 }
 
+.divider {
+    display: inline-block;
+    width: 1px;
+    height: 8px;
+    background: var(--text-primary);
+}
+
 /*!* 뱃지 *!*/
 /*.badge {*/
 /*    color: var(--text-primary);*/
