@@ -41,7 +41,7 @@ const optionMap = {
     "LUK": "LUK",
     "HP": "HP",
     "MP": "MP",
-    "보스 몬스터 공격 시 데미지": "보공",
+    "보스 몬스터 데미지": "보공",
     "몬스터 방어율 무시": "방무",
     "크리티컬 확률": "크확",
     "크리티컬 데미지": "크댐",
@@ -126,7 +126,7 @@ async function loadCharacterData() {
     const nickname = decodeURIComponent(window.location.pathname.split('/').pop());
 
     try {
-        if (isLocal){
+        if (isLocal) {
             // FIXME 개발용 더미데이터 나중에 삭제
             // 개발환경시 더미데이터 사용
             characterData = dummyCharacterData;
@@ -148,21 +148,55 @@ function init() {
 
 function initPresetBtns() {
     // 어빌리티
-    document.getElementById('ability-btn1').addEventListener('click', () => updateAbility(1));
-    document.getElementById('ability-btn2').addEventListener('click', () => updateAbility(2));
-    document.getElementById('ability-btn3').addEventListener('click', () => updateAbility(3));
+    const abilityPresetNo = characterData?.characterAbility.preset_no;
+    const abilityBtn1 = document.getElementById('ability-btn1');
+    const abilityBtn2 = document.getElementById('ability-btn2');
+    const abilityBtn3 = document.getElementById('ability-btn3');
+    abilityBtn1.addEventListener('click', () => updateAbility(1));
+    abilityBtn2.addEventListener('click', () => updateAbility(2));
+    abilityBtn3.addEventListener('click', () => updateAbility(3));
+    // 버튼 액티브 효과 추가
+    if (abilityPresetNo === 1) abilityBtn1.classList.add('preset-btn-active');
+    if (abilityPresetNo === 2) abilityBtn2.classList.add('preset-btn-active');
+    if (abilityPresetNo === 3) abilityBtn3.classList.add('preset-btn-active');
 
     // 하이퍼스텟
-    document.getElementById('hyper-stat-btn1').addEventListener('click', () => updateHyperStat(1));
-    document.getElementById('hyper-stat-btn2').addEventListener('click', () => updateHyperStat(2));
-    document.getElementById('hyper-stat-btn3').addEventListener('click', () => updateHyperStat(3));
+    const hyperStatPresetNo = characterData?.characterHyperStat.use_preset_no;
+    const hyperStatBtn1 = document.getElementById('hyper-stat-btn1');
+    const hyperStatBtn2 = document.getElementById('hyper-stat-btn2');
+    const hyperStatBtn3 = document.getElementById('hyper-stat-btn3');
+    hyperStatBtn1.addEventListener('click', () => updateHyperStat(1));
+    hyperStatBtn2.addEventListener('click', () => updateHyperStat(2));
+    hyperStatBtn3.addEventListener('click', () => updateHyperStat(3));
+    // 버튼 액티브 효과 추가
+    if (hyperStatPresetNo === "1") hyperStatBtn1.classList.add('preset-btn-active');
+    if (hyperStatPresetNo === "2") hyperStatBtn2.classList.add('preset-btn-active');
+    if (hyperStatPresetNo === "3") hyperStatBtn3.classList.add('preset-btn-active');
 
     // 장비
-    document.getElementById('equipment-btn1').addEventListener('click', () => updateEquipment(1));
-    document.getElementById('equipment-btn2').addEventListener('click', () => updateEquipment(2));
-    document.getElementById('equipment-btn3').addEventListener('click', () => updateEquipment(3));
+    const equipmentPresetNo = characterData?.characterItemEquipment.preset_no;
+    const equipmentBtn1 = document.getElementById('equipment-btn1');
+    const equipmentBtn2 = document.getElementById('equipment-btn2');
+    const equipmentBtn3 = document.getElementById('equipment-btn3');
+    equipmentBtn1.addEventListener('click', () => updateEquipment(1));
+    equipmentBtn2.addEventListener('click', () => updateEquipment(2));
+    equipmentBtn3.addEventListener('click', () => updateEquipment(3));
+    // 버튼 액티브 효과 추가
+    if (equipmentPresetNo === 1) equipmentBtn1.classList.add('preset-btn-active');
+    if (equipmentPresetNo === 2) equipmentBtn2.classList.add('preset-btn-active');
+    if (equipmentPresetNo === 3) equipmentBtn3.classList.add('preset-btn-active');
 }
 
+// preset-btn 토글 이벤트
+document.querySelectorAll('.preset-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        const group = this.closest('div');
+        group.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.classList.remove('preset-btn-active');
+        });
+        this.classList.add('preset-btn-active');
+    });
+});
 
 function updateCharacterData() {
     // 캐릭터창 데이터
@@ -244,8 +278,8 @@ function convertStat() {
     document.getElementById('dex-value').textContent = Number(document.getElementById('dex-value').textContent).toLocaleString();
     document.getElementById('int-value').textContent = Number(document.getElementById('int-value').textContent).toLocaleString();
     document.getElementById('luk-value').textContent = Number(document.getElementById('luk-value').textContent).toLocaleString();
-
-
+    document.getElementById('hp-value').textContent = Number(document.getElementById('hp-value').textContent).toLocaleString();
+    document.getElementById('mp-value').textContent = Number(document.getElementById('mp-value').textContent).toLocaleString();
 }
 
 // 전투력 표기 변환
@@ -375,7 +409,6 @@ const getEquipOptionNameShorten = (optionName) => {
     const [optionText, valueText] = optionName.split("+");
     const trimmedOption = optionText.replace(":", "").trim();
     const value = valueText ? `+${valueText.trim()}` : "";
-
     const shortName = optionMap[trimmedOption] || trimmedOption;
 
     return `${shortName} ${value}`.trim();

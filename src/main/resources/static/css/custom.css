@@ -5,6 +5,9 @@
     --divider-color: #3a3a3a;
     --text-primary: #b4b4b4;
     --text-secondary: #888888;
+    --btn-primary: #404040;
+    --btn-hover: #5a5a5a;
+    --btn-select: #606060;
 
     /* 추가 색상 */
     --starforce-color: #ffc200;
@@ -137,7 +140,9 @@ body {
 }
 
 .stat-header {
-
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-primary);
 }
 
 /* 스탯 라벨 */
@@ -153,12 +158,37 @@ body {
     color: white;
 }
 
+/* 텍스트 구분선 */
 .divider {
     display: inline-block;
     width: 1px;
     height: 8px;
     background: var(--text-primary);
 }
+
+/* 프리셋  버튼*/
+.preset-btn {
+    background-color: var(--btn-primary);
+    color: var(--text-secondary);
+    border: 1px var(--btn-primary) solid;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 3px;
+    text-align: center;
+}
+
+.preset-btn:hover{
+    background-color: var(--btn-hover);
+    border: 1px var(--btn-hover) solid;
+}
+
+.preset-btn-active{
+    background-color: var(--btn-select);
+    border: 1px var(--btn-select) solid;
+    color: white;
+}
+
 
 /*!* 뱃지 *!*/
 /*.badge {*/
