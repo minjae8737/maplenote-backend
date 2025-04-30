@@ -156,9 +156,9 @@ function initPresetBtns() {
     abilityBtn2.addEventListener('click', () => updateAbility(2));
     abilityBtn3.addEventListener('click', () => updateAbility(3));
     // 버튼 액티브 효과 추가
-    if (abilityPresetNo === 1) abilityBtn1.classList.add('preset-btn-active');
-    if (abilityPresetNo === 2) abilityBtn2.classList.add('preset-btn-active');
-    if (abilityPresetNo === 3) abilityBtn3.classList.add('preset-btn-active');
+    if (abilityPresetNo === 1) abilityBtn1.classList.add('active');
+    if (abilityPresetNo === 2) abilityBtn2.classList.add('active');
+    if (abilityPresetNo === 3) abilityBtn3.classList.add('active');
 
     // 하이퍼스텟
     const hyperStatPresetNo = characterData?.characterHyperStat.use_preset_no;
@@ -169,9 +169,9 @@ function initPresetBtns() {
     hyperStatBtn2.addEventListener('click', () => updateHyperStat(2));
     hyperStatBtn3.addEventListener('click', () => updateHyperStat(3));
     // 버튼 액티브 효과 추가
-    if (hyperStatPresetNo === "1") hyperStatBtn1.classList.add('preset-btn-active');
-    if (hyperStatPresetNo === "2") hyperStatBtn2.classList.add('preset-btn-active');
-    if (hyperStatPresetNo === "3") hyperStatBtn3.classList.add('preset-btn-active');
+    if (hyperStatPresetNo === "1") hyperStatBtn1.classList.add('active');
+    if (hyperStatPresetNo === "2") hyperStatBtn2.classList.add('active');
+    if (hyperStatPresetNo === "3") hyperStatBtn3.classList.add('active');
 
     // 장비
     const equipmentPresetNo = characterData?.characterItemEquipment.preset_no;
@@ -182,9 +182,9 @@ function initPresetBtns() {
     equipmentBtn2.addEventListener('click', () => updateEquipment(2));
     equipmentBtn3.addEventListener('click', () => updateEquipment(3));
     // 버튼 액티브 효과 추가
-    if (equipmentPresetNo === 1) equipmentBtn1.classList.add('preset-btn-active');
-    if (equipmentPresetNo === 2) equipmentBtn2.classList.add('preset-btn-active');
-    if (equipmentPresetNo === 3) equipmentBtn3.classList.add('preset-btn-active');
+    if (equipmentPresetNo === 1) equipmentBtn1.classList.add('active');
+    if (equipmentPresetNo === 2) equipmentBtn2.classList.add('active');
+    if (equipmentPresetNo === 3) equipmentBtn3.classList.add('active');
 }
 
 // preset-btn 토글 이벤트
@@ -192,9 +192,9 @@ document.querySelectorAll('.preset-btn').forEach(button => {
     button.addEventListener('click', function () {
         const group = this.closest('div');
         group.querySelectorAll('.preset-btn').forEach(btn => {
-            btn.classList.remove('preset-btn-active');
+            btn.classList.remove('active');
         });
-        this.classList.add('preset-btn-active');
+        this.classList.add('active');
     });
 });
 

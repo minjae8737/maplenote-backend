@@ -183,7 +183,7 @@ body {
     border: 1px var(--btn-hover) solid;
 }
 
-.preset-btn-active{
+.preset-btn.active{
     background-color: var(--btn-select);
     border: 1px var(--btn-select) solid;
     color: white;
