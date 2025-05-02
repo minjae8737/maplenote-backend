@@ -29,8 +29,7 @@ public class Pet {
     @JsonProperty("auto_skill")
     private PetAutoSkill autoSkill; // 펫 자동 버프 스킬
 
-    @JsonProperty("pet_type")
-    private String petType; // 원더 펫 종류
+
 
     @JsonProperty("skill")
     private List<String> skills; // 펫 보유 스킬 목록
