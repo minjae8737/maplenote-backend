@@ -55,19 +55,21 @@ const optionMap = {
     "모든 스킬의 재사용 대기시간  -1초(10초 이하는 10%감소, 5초 미만으로 감소 불가)": "쿨감 -1초",
 };
 
-// const gradeClassMap = {
-//     '레전드리': ['grade-legendary', 'grade-legendary-back'],
-//     '유니크': ['grade-unique', 'grade-unique-back'],
-//     '에픽': ['grade-epic', 'grade-epic-back'],
-//     '레어': ['grade-rare', 'grade-rare-back'],
-// };
-
 const grade = [
     {id: "레전드리", fontColor: "grade-legendary", backColor: "grade-legendary-back"},
     {id: "유니크", fontColor: "grade-unique", backColor: "grade-unique-back"},
     {id: "에픽", fontColor: "grade-epic", backColor: "grade-epic-back"},
     {id: "레어", fontColor: "grade-rare", backColor: "grade-rare-back"},
 ]
+
+const cashPresetMap = {
+    0: "cash_item_equipment_base",
+    1: "cash_item_equipment_preset_1",
+    2: "cash_item_equipment_preset_2",
+    3: "cash_item_equipment_preset_3",
+}
+
+const cashPrismColorMap = {}
 
 const ctx = document.getElementById('expChart').getContext('2d');
 
@@ -185,6 +187,22 @@ function initPresetBtns() {
     if (equipmentPresetNo === 1) equipmentBtn1.classList.add('active');
     if (equipmentPresetNo === 2) equipmentBtn2.classList.add('active');
     if (equipmentPresetNo === 3) equipmentBtn3.classList.add('active');
+
+    // 캐시
+    const cashPresetNo = characterData?.characterCashItemEquipment.preset_no;
+    const cashBtn0 = document.getElementById('cash-btn0');
+    const cashBtn1 = document.getElementById('cash-btn1');
+    const cashBtn2 = document.getElementById('cash-btn2');
+    const cashBtn3 = document.getElementById('cash-btn3');
+    cashBtn0.addEventListener('click', () => updateCashEquip(0));
+    cashBtn1.addEventListener('click', () => updateCashEquip(1));
+    cashBtn2.addEventListener('click', () => updateCashEquip(2));
+    cashBtn3.addEventListener('click', () => updateCashEquip(3));
+    // 버튼 액티브 효과 추가
+    if (equipmentPresetNo === 0) cashBtn0.classList.add('active');
+    if (equipmentPresetNo === 1) cashBtn1.classList.add('active');
+    if (equipmentPresetNo === 2) cashBtn2.classList.add('active');
+    if (equipmentPresetNo === 3) cashBtn3.classList.add('active');
 }
 
 // preset-btn 토글 이벤트
@@ -219,6 +237,9 @@ function updateCharacterData() {
 
     // 장비 목록
     updateEquipment(characterData.characterItemEquipment.preset_no);
+
+    // 캐시 장비 목록
+    updateCashEquip(characterData.characterCashItemEquipment.preset_no)
 
     //exp 히스토리
     updateExpChart();
@@ -402,7 +423,48 @@ function updateEquipment(presetNum) {
     equipParent.innerHTML = html;
 }
 
-// 옵션명을 짧게 변환하는 함수
+// 캐시 장비목록 업데이트
+function updateCashEquip(presetNum) {
+    const cashParent = document.getElementById('cash-parent');
+    let cashPresetName = cashPresetMap[presetNum];
+    let cashEquipmentData = characterData.characterCashItemEquipment[cashPresetName];
+
+    // 하위 요소 모두 삭제
+    cashParent.innerHTML = '';
+
+    let html = '';
+
+    for (const cashEquipment of cashEquipmentData) {
+
+        const prismText = cashEquipment.cash_item_coloring_prism !== null ?
+            `${getCashPrismColorRangeShorten(cashEquipment.cash_item_coloring_prism.color_range)} ` +
+            `/색조 ${getSignedNumber(cashEquipment.cash_item_coloring_prism.hue)}` +
+            `/채도 ${getSignedNumber(cashEquipment.cash_item_coloring_prism.saturation)}` +
+            `/명도 ${getSignedNumber(cashEquipment.cash_item_coloring_prism.value)}` : "";
+
+        html += `
+            <div class="col">
+                <div class="equip-card">
+                    <div class="equip-content">
+                        <div class="equip-img-wrapper">
+                            <img src="${cashEquipment.cash_item_icon}" class="equip-img" alt="">
+                        </div>
+                        <div class="equip-info">
+                            <span class="cash-card-partname">${cashEquipment.cash_item_equipment_part}</span>
+                            <span class="cash-card-itemname">${cashEquipment.cash_item_name}</span>
+                            <span class="cash-card-prism">${prismText}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    cashParent.innerHTML = html;
+
+}
+
+// 장비 옵션명을 짧게 변환하는 함수
 const getEquipOptionNameShorten = (optionName) => {
     if (!optionName) return "";
 
@@ -413,6 +475,18 @@ const getEquipOptionNameShorten = (optionName) => {
 
     return `${shortName} ${value}`.trim();
 };
+
+// 프리즘 '계열' 단어를 빼는 함수
+const getCashPrismColorRangeShorten = (colorRange) => {
+    if (!colorRange) return "";
+
+    return trimmedColorRagne = colorRange.replace("계열", "").trim();
+}
+
+// 숫자 양수면 '+'를 붙이고 음수면 그대로 반환해주는 함수
+const getSignedNumber = (value) => {
+    return value > 0 ? `+${value}` : value;
+}
 
 function updateExpChart() {
     const expDatas = characterData.characterExps.toReversed();

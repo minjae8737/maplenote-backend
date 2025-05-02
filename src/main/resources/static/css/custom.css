@@ -212,6 +212,22 @@ body {
     color: white;
 }
 
+/* 캐시 카드 */
+.cash-card-partname {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
+.cash-card-itemname {
+    font-weight: 800;
+}
+
+.cash-card-prism {
+    font-size: 10px;
+    color: var(--text-secondary);
+
+}
 
 /*!* 뱃지 *!*/
 /*.badge {*/
