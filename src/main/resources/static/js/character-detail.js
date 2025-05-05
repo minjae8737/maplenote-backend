@@ -62,6 +62,12 @@ const grade = [
     {id: "레어", fontColor: "grade-rare", backColor: "grade-rare-back"},
 ]
 
+const petGrade = [
+    {id: "루나 쁘띠", fontColor: "grade-luna-petit"},
+    {id: "루나 스윗", fontColor: "grade-luna-sweat"},
+    {id: "루나 드림", fontColor: "grade-luna-dream"},
+];
+
 const cashPresetMap = {
     0: "cash_item_equipment_base",
     1: "cash_item_equipment_preset_1",
@@ -240,6 +246,9 @@ function updateCharacterData() {
 
     // 캐시 장비 목록
     updateCashEquip(characterData.characterCashItemEquipment.preset_no)
+
+    // 펫 목록
+    updatePet();
 
     //exp 히스토리
     updateExpChart();
@@ -464,6 +473,73 @@ function updateCashEquip(presetNum) {
 
 }
 
+// 펫 목록 업데이트
+const updatePet = () => {
+    const petParent = document.getElementById('pet-parent');
+    const petEquipParent = document.getElementById('pet-equipment-parent');
+
+    const petDatas = characterData.characterPetEquipment;
+    const pets = [1, 2, 3];
+
+    let petHtml = '';
+    let petEquipHtml = '';
+
+    pets.forEach(i => {
+
+        // 펫
+        const petName = petDatas[`pet_${i}_name`];
+        const petGradeName = petDatas[`pet_${i}_pet_type`] !== null ? petDatas[`pet_${i}_pet_type`] : '';
+        const findPetGrade = petGrade.find(grade => grade.id === petGradeName);
+        const petGradeClass = findPetGrade !== null ? `pet-grade ${findPetGrade?.fontColor}` : '';
+
+        // 펫장비
+        const petEquipIcon = petDatas[`pet_${i}_equipment`]?.item_icon || '';
+        const petEquipName = petDatas[`pet_${i}_equipment`]?.item_name || '';
+        const petOptions = petDatas[`pet_${i}_equipment`]?.item_option || [];
+        let petOptionText = '';
+
+        for (const petOption of petOptions) {
+            let optionText = `${petOption.option_type} ${getSignedNumber(petOption.option_value)} `;
+            petOptionText += optionText;
+        }
+
+        petOptionText.trim();
+
+        petHtml += `
+            <div>
+                <div class="pet-content">
+                    <div class="pet-img-wrapper">
+                        <img src="${petDatas[`pet_${i}_icon`]}">
+                    </div>
+                    <div class="pet-info">
+                        <span class="${petGradeClass}">${petGradeName}</span>
+                        <span class="pet-name">${petName}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        petEquipHtml += `
+            <div>
+                <div class="pet-content">
+                    <div class="pet-img-wrapper">
+                        <img src="${petEquipIcon}">
+                    </div>
+                    <div class="pet-info">
+                        <span class="pet-name">${petEquipName}</span>
+                        <span class="pet-equip-effect">${petOptionText}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+    });
+
+    petParent.innerHTML = petHtml;
+    petEquipParent.innerHTML = petEquipHtml;
+
+};
+
 // 장비 옵션명을 짧게 변환하는 함수
 const getEquipOptionNameShorten = (optionName) => {
     if (!optionName) return "";
@@ -485,7 +561,7 @@ const getCashPrismColorRangeShorten = (colorRange) => {
 
 // 숫자 양수면 '+'를 붙이고 음수면 그대로 반환해주는 함수
 const getSignedNumber = (value) => {
-    return value > 0 ? `+${value}` : value;
+    return Number.parseInt(value) > 0 ? `+${value}` : value;
 }
 
 function updateExpChart() {

@@ -8,11 +8,14 @@
     --btn-primary: #404040;
     --btn-hover: #5a5a5a;
     --btn-select: #606060;
+    --slot-primary: #1b1b1b;
+
 
     /* 추가 색상 */
     --starforce-color: #ffc200;
     --starforce-background: rgb(160, 123, 1);
 
+    /* 장비 등급 */
     --legendary: #00ff00;
     --legendary-back: rgb(1, 151, 1);
     --unique: #ffcc00;
@@ -22,6 +25,12 @@
     --rare: #60fcf8;
     --rare-back: rgb(52, 137, 135);
     --basic: #e6e6e6;
+
+    /* 펫 등급 */
+    --luna-petit: #9663c8;
+    --luna-sweat: #c3509d;
+    --luna-dream: #00ccff;
+
 }
 
 /* 전체 배경 */
@@ -178,12 +187,12 @@ body {
     text-align: center;
 }
 
-.preset-btn:hover{
+.preset-btn:hover {
     background-color: var(--btn-hover);
     border: 1px var(--btn-hover) solid;
 }
 
-.preset-btn.active{
+.preset-btn.active {
     background-color: var(--btn-select);
     border: 1px var(--btn-select) solid;
     color: white;
@@ -226,12 +235,58 @@ body {
 .cash-card-prism {
     font-size: 10px;
     color: var(--text-secondary);
-
 }
 
-/*!* 뱃지 *!*/
-/*.badge {*/
-/*    color: var(--text-primary);*/
-/*    background-color: var(--text-secondary);*/
-/*    border-radius: 4px;*/
-/*}*/
+/* 펫 */
+.pet-img-wrapper {
+    background-color: var(--slot-primary);
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.pet-img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    align-self: center;
+}
+
+.pet-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pet-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pet-grade {
+    font-size: 12px;
+}
+
+.pet-name {
+    font-weight: 800;
+}
+
+.pet-equip-effect {
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+.grade-luna-petit {
+    color: var(--luna-petit);
+}
+
+.grade-luna-sweat {
+    color: var(--luna-sweat);
+}
+.grade-luna-dream {
+    color: var(--luna-dream);
+}
