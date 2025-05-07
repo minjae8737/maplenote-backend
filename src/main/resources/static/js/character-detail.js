@@ -1,4 +1,4 @@
-let characterData = null;
+let characterDatacharacterData = null;
 let isLocal = window.location.hostname === "localhost" && window.location.port === "63342";  // IDE로 파일을 열었는지 확인
 
 const stats = [
@@ -252,6 +252,9 @@ function updateCharacterData() {
 
     //exp 히스토리
     updateExpChart();
+
+    // 스킬 목록
+    updateSkillList();
 
 }
 
@@ -564,6 +567,7 @@ const getSignedNumber = (value) => {
     return Number.parseInt(value) > 0 ? `+${value}` : value;
 }
 
+// 경험치 목록 표시
 function updateExpChart() {
     const expDatas = characterData.characterExps.toReversed();
     let explabel = [];
@@ -581,6 +585,55 @@ function updateExpChart() {
 
 function formattingDate(date) {
     return date.substring(8, 10) + "일";
+}
+
+// 스킬 목록 업데이트
+function updateSkillList() {
+    const _5thSkillParent = document.getElementById('5th-skill-parent');
+    const _6thSkillParent = document.getElementById('6th-skill-parent');
+
+    const characterSkillList = characterData?.characterSkills.character_skill_list || [];
+    const _5thSkillList = characterSkillList.find((s) => s.character_skill_grade === '5')?.character_skill || [];
+    const _6thSkillList = characterSkillList.find((s) => s.character_skill_grade === '6')?.character_skill || [];
+
+    let _5thSkillHtml = '';
+    let _6thSkillHtml = '';
+
+    for (const skill of _5thSkillList) {
+        const skillIcon = skill.skill_icon;
+        const skillName = skill.skill_name;
+        const skillLevel = skill.skill_level;
+
+        _5thSkillHtml += `
+            <div class="skill-card">
+                <div class="skill-icon-wrapper">
+                    <img src="${skillIcon}">
+                </div>
+                <span class="skill-name">${skillName}</span>
+                <span>${skillLevel}</span>
+            </div>
+        `;
+
+    }
+
+    for (const skill of _6thSkillList) {
+        const skillName = skill.skill_name;
+        const skillLevel = skill.skill_level;
+        const skillIcon = skill.skill_icon;
+
+        _6thSkillHtml += `
+            <div class="skill-card">
+                <div class="skill-icon-wrapper">
+                    <img src="${skillIcon}">
+                </div>
+                <span class="skill-name">${skillName}</span>
+                <span>${skillLevel}</span>
+            </div>
+        `;
+    }
+
+    _5thSkillParent.innerHTML = _5thSkillHtml;
+    _6thSkillParent.innerHTML = _6thSkillHtml;
 }
 
 

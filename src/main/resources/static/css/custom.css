@@ -287,6 +287,40 @@ body {
 .grade-luna-sweat {
     color: var(--luna-sweat);
 }
+
 .grade-luna-dream {
     color: var(--luna-dream);
+}
+
+
+/* 스킬 */
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    background-color: var(--slot-primary);
+    padding: 5px;
+    align-items: center;
+    width: 70px;
+    height: 100px;
+}
+
+.skill-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.skill-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: inherit;
+    padding: 0px 4px;
+    text-align: center;
 }
