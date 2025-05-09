@@ -1,6 +1,10 @@
 package com.project.maplenote.character.domain.Dto;
 
 import com.project.maplenote.character.domain.character.*;
+import com.project.maplenote.character.domain.union.Union;
+import com.project.maplenote.character.domain.union.UnionArtifact;
+import com.project.maplenote.character.domain.union.UnionChampion;
+import com.project.maplenote.character.domain.union.UnionRaider;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,8 +36,12 @@ public class CharacterResponseDto {
     private CharacterHexaMatrixStat characterHexaMatrixStat;
     private CharacterDojang characterDojang;
     private List<CharacterExp> characterExps;
+    private Union union;
+    private UnionRaider unionRaider;
+    private UnionArtifact unionArtifact;
+    private UnionChampion unionChampion;
 
-    public CharacterResponseDto(CharacterBasic characterBasic, CharacterPopularity characterPopularity, CharacterStat characterStat, CharacterHyperStat characterHyperStat, CharacterPropensity characterPropensity, CharacterAbility characterAbility, CharacterItemEquipment characterItemEquipment, CharacterSymbolEquipment characterSymbolEquipment, CharacterSetEffect characterSetEffect, CharacterCashItemEquipment characterCashItemEquipment, CharacterBeautyEquipment characterBeautyEquipment, CharacterAndroidEquipment characterAndroidEquipment, CharacterPetEquipment characterPetEquipment, CharacterSkills characterSkills, CharacterLinkSkill characterLinkSkill, CharacterVMatrix characterVMatrix, CharacterHexaMatrix characterHexaMatrix, CharacterHexaMatrixStat characterHexaMatrixStat, CharacterDojang characterDojang, List<CharacterExp> characterExps) {
+    public CharacterResponseDto(CharacterBasic characterBasic, CharacterPopularity characterPopularity, CharacterStat characterStat, CharacterHyperStat characterHyperStat, CharacterPropensity characterPropensity, CharacterAbility characterAbility, CharacterItemEquipment characterItemEquipment, CharacterSymbolEquipment characterSymbolEquipment, CharacterSetEffect characterSetEffect, CharacterCashItemEquipment characterCashItemEquipment, CharacterBeautyEquipment characterBeautyEquipment, CharacterAndroidEquipment characterAndroidEquipment, CharacterPetEquipment characterPetEquipment, CharacterSkills characterSkills, CharacterLinkSkill characterLinkSkill, CharacterVMatrix characterVMatrix, CharacterHexaMatrix characterHexaMatrix, CharacterHexaMatrixStat characterHexaMatrixStat, CharacterDojang characterDojang, List<CharacterExp> characterExps, Union union, UnionRaider unionRaider, UnionArtifact unionArtifact, UnionChampion unionChampion) {
         this.characterBasic = characterBasic;
         this.characterPopularity = characterPopularity;
         this.characterStat = characterStat;
@@ -54,6 +62,9 @@ public class CharacterResponseDto {
         this.characterHexaMatrixStat = characterHexaMatrixStat;
         this.characterDojang = characterDojang;
         this.characterExps = characterExps;
+        this.union = union;
+        this.unionRaider = unionRaider;
+        this.unionArtifact = unionArtifact;
+        this.unionChampion = unionChampion;
     }
-
 }
