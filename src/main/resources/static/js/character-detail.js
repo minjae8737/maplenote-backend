@@ -77,6 +77,25 @@ const cashPresetMap = {
 
 const cashPrismColorMap = {}
 
+const acrtifactOptionMap = {
+    "메소 획득량 증가": "메획",
+    "아이템 드롭률 증가": "아획",
+    "추가 경험치 획득 증가": "추경",
+    "버프 지속시간 증가": "벞지",
+    "크리티컬 확률 증가": "크확",
+    "크리티컬 데미지 증가": "크뎀",
+    "몬스터 방어율 무시 증가": "방무",
+    "보스 몬스터 공격 시 데미지 증가": "보공",
+    "데미지 증가": "데미지",
+    "올스탯 증가": "올스텟",
+    "최대 HP/MP 증가": "HP/MP",
+    "공격력/마력 증가": "공/마",
+    "재사용 대기시간 미적용 확률 증가": "공/마",
+    "파이널 어택류 스킬 데미지 증가": "파택",
+    "소환수 지속시간 증가": "소환수",
+    "상태이상 내성 증가": "내성",
+};
+
 const ctx = document.getElementById('expChart').getContext('2d');
 
 const expChart = new Chart(ctx, {
@@ -256,6 +275,8 @@ function updateCharacterData() {
     // 스킬 목록
     updateSkillList();
 
+    // 아티팩트 목록
+    updateUnionArtifact();
 }
 
 // 스탯 가져오는 함수
@@ -636,5 +657,75 @@ function updateSkillList() {
     _6thSkillParent.innerHTML = _6thSkillHtml;
 }
 
+function updateUnionArtifact() {
+    const artifactCardParent = document.getElementById('artifact-card-parent');
+    const artifactEffectParent = document.getElementById('artifact-effect-parent');
+
+    const artifactData = characterData?.unionArtifact || '';
+    const artifactLevel = characterData?.union.union_artifact_level || '';
+
+    let cardHtml = '';
+    let effectHtml = '';
+
+    const artifactCrystals = artifactData?.union_artifact_crystal || [];
+    const artifactEffect = artifactData?.union_artifact_effect || [];
+
+    // 아티팩트 카드
+    for (const crystal of artifactCrystals) {
+
+        const artifactLevelIcon = getDiamondIcon(crystal.level);
+        const optionName1 = acrtifactOptionMap[crystal.crystal_option_name_1];
+        const optionName2 = acrtifactOptionMap[crystal.crystal_option_name_2];
+        const optionName3 = acrtifactOptionMap[crystal.crystal_option_name_3];
+
+        cardHtml += `
+            <div class="artifact-card">
+                <div>
+                    ${artifactLevelIcon}
+                </div>
+                <div>
+                    <span class="artifact-label">${optionName1}</span>
+                    <span class="artifact-label">${optionName2}</span>
+                    <span class="artifact-label">${optionName3}</span>
+                </div>
+            </div>        
+        `;
+    }
+
+    // 아티팩트 효과
+    for (const effect of artifactEffect) {
+        const level = effect.level;
+        const name = effect.name;
+
+        effectHtml += `
+            <div>
+                <span class="badge text-bg-secondary">Lv.${level}</span> <span class="artifact-label">${name}</span>
+            </div>            
+        `;
+
+    }
+
+    artifactCardParent.innerHTML = cardHtml;
+    artifactEffectParent.innerHTML = effectHtml;
+
+}
+
+function getDiamondIcon(quantity) {
+
+    let html = '';
+    let color = quantity === 5 ? '#6D62A1' : '#198ca8';
+
+    for (let i = 0; i < quantity; i++) {
+        html += `
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                 class="bi bi-suit-diamond-fill" viewBox="0 0 16 16">
+                <path d="M2.45 7.4 7.2 1.067a1 1 0 0 1 1.6 0L13.55 7.4a1 1 0 0 1 0 1.2L8.8 14.933a1 1 0 0 1-1.6 0L2.45 8.6a1 1 0 0 1 0-1.2"
+                      fill="${color}"/>
+            </svg>
+        `;
+    }
+
+    return html;
+}
 
 window.onload = loadCharacterData;

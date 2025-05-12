@@ -31,6 +31,9 @@
     --luna-sweat: #c3509d;
     --luna-dream: #00ccff;
 
+    /* 아티팩트 등급 */
+    --artifact-max: #6D62A1;
+    --artifact: #198ca8;
 }
 
 /* 전체 배경 */
@@ -323,4 +326,36 @@ body {
     width: inherit;
     padding: 0px 4px;
     text-align: center;
+}
+
+/* 유니온 아티팩트 */
+.artifact-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    background-color: var(--slot-primary);
+    padding: 5px;
+    align-items: center;
+}
+
+.artifact-wrapper {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.artifact-label {
+    font-size: 12px;
+}
+
+.artifact-grade-max {
+    color: var(--artifact-max);
+}
+
+.artifact-grade {
+    color: var(--artifact);
 }
