@@ -359,3 +359,26 @@ body {
 .artifact-grade {
     color: var(--artifact);
 }
+
+/* 아티팩트 레이더 */
+.raider-con {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 308px;
+    height: 280px;
+    background: var(--slot-primary);
+}
+.raider-img {
+    width: 308px;
+    height: 280px;
+    z-index: 2;
+}
+
+.raider-cell {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #c49a6c;
+}
+

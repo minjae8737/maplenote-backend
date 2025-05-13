@@ -277,6 +277,9 @@ function updateCharacterData() {
 
     // 아티팩트 목록
     updateUnionArtifact();
+
+    // 유니온 레이더
+    updateRaider();
 }
 
 // 스탯 가져오는 함수
@@ -726,6 +729,39 @@ function getDiamondIcon(quantity) {
     }
 
     return html;
+}
+
+function updateRaider() {
+
+    const cellParent = document.getElementById('raider-cell-parent');
+
+    const raiderData = characterData?.unionRaider || '';
+    const raiderStat = raiderData.union_raider_stat;  //공격대원 효과
+    const occupiedStat = raiderData.union_occupied_stat; //점령 효과
+    const innerStat = raiderData.union_inner_stat; //공격대 배치(11시부터 시계방향으로 스텟 배치)
+    const blockDatas = raiderData.union_block; //유니온블록 정보
+    const CELLSIZE = 14;
+    let cellHtml = '';
+
+    for (const blockData of blockDatas) {
+        const positions = blockData.block_position;
+
+        for (const position of positions) {
+            const pos = calCellPos({x: position.x, y: position.y}, CELLSIZE);
+
+            cellHtml += `
+                <div class="raider-cell" style="left: ${pos.x}px; top: ${pos.y}px"></div>
+            `;
+        }
+    }
+
+    cellParent.innerHTML = cellHtml;
+
+
+}
+
+function calCellPos(pos, CELLSIZE) {
+    return {x: (pos.x + 11) * CELLSIZE, y: (10 - pos.y) * CELLSIZE}
 }
 
 window.onload = loadCharacterData;
