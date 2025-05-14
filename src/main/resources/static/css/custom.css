@@ -360,7 +360,7 @@ body {
     color: var(--artifact);
 }
 
-/* 아티팩트 레이더 */
+/* 유니온 레이더 */
 .raider-con {
     position: relative;
     display: flex;
@@ -382,3 +382,14 @@ body {
     background-color: #c49a6c;
 }
 
+.raider-stat-name {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.raider-stat {
+    display: list-item;
+    font-size: 12px;
+}

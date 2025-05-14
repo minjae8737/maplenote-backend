@@ -195,7 +195,7 @@
                     </div>
                     <!-- 어빌리티 -->
                     <div class="row pt-2">
-                        <span class="stat-header">어빌리티</span>
+                        <span class="col-auto stat-header">어빌리티</span>
                         <div class="col">
                             <button id="ability-btn1" class="preset-btn">1</button>
                             <button id="ability-btn2" class="preset-btn">2</button>
@@ -206,7 +206,7 @@
                     </div>
                     <!-- 하이퍼 스텟 -->
                     <div class="row pt-2">
-                        <span class="stat-header">하이퍼 스텟</span>
+                        <span class="col-auto stat-header">하이퍼 스텟</span>
                         <div class="col">
                             <button id="hyper-stat-btn1" class="preset-btn">1</button>
                             <button id="hyper-stat-btn2" class="preset-btn">2</button>
@@ -417,12 +417,64 @@
                     </div>
                 </div>
 
-                <!-- 유니온 매트릭스 -->
+                <!-- 유니온 -->
                 <div class="character-container">
-                    <div class="raider-con">
-                        <img class="raider-img" src="../../static/images/artifact/outline-union-board.png">
-                        <div class="" id="raider-cell-parent">
-<!--                            <div class="raider-cell" style="left: 0px; top:14px"></div>-->
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <span class="h1">유니온</span>
+                        </div>
+                        <div class="col d-flex justify-content-end gap-1">
+                            <button id="union-preset-btn1" class="preset-btn">1</button>
+                            <button id="union-preset-btn2" class="preset-btn">2</button>
+                            <button id="union-preset-btn3" class="preset-btn">3</button>
+                            <button id="union-preset-btn4" class="preset-btn">4</button>
+                            <button id="union-preset-btn5" class="preset-btn">5</button>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <!-- 유니온 전투지도 -->
+                        <div class="col">
+                            <div class="raider-con">
+                                <img class="raider-img" src="../../static/images/artifact/outline-union-board.png">
+                                <div class="" id="raider-cell-parent">
+                                    <!--                            <div class="raider-cell" style="left: 0px; top:14px"></div>-->
+                                </div>
+                                <div>
+                                    <span id="raider-stat-name0" class="raider-stat-name" style="left: 147px; top: 84px; transform: translateX(-100%);"></span>
+                                    <span id="raider-stat-name1" class="raider-stat-name" style="left: 161px; top: 84px;"></span>
+                                    <span id="raider-stat-name2" class="raider-stat-name" style="left: 203px; top: 112px;"></span>
+                                    <span id="raider-stat-name3" class="raider-stat-name" style="left: 203px; top: 154px;"></span>
+                                    <span id="raider-stat-name4" class="raider-stat-name" style="left: 161px; top: 182px;"></span>
+                                    <span id="raider-stat-name5" class="raider-stat-name" style="left: 147px; top: 182px; transform: translateX(-100%);"></span>
+                                    <span id="raider-stat-name6" class="raider-stat-name" style="left: 105px; top: 154px; transform: translateX(-100%);"></span>
+                                    <span id="raider-stat-name7" class="raider-stat-name" style="left: 105px; top: 112px; transform: translateX(-100%);"></span>
+                                    <span class="raider-stat-name" style="left: 147px; top: 28px; transform: translateX(-100%);">내성</span>
+                                    <span class="raider-stat-name" style="left: 161px; top: 28px; ;">획득경험치</span>
+                                    <span class="raider-stat-name" style="left: 287px; top: 84px; transform: translateX(-100%);">크확</span>
+                                    <span class="raider-stat-name" style="left: 287px; top: 182px; transform: translateX(-100%);">보공</span>
+                                    <span class="raider-stat-name" style="left: 161px; top: 236px; ">일반데미지</span>
+                                    <span class="raider-stat-name" style="left: 147px; top: 236px; transform: translateX(-100%);">벞지</span>
+                                    <span class="raider-stat-name" style="left: 35px; top: 182px; transform: translateX(-100%);">방무</span>
+                                    <span class="raider-stat-name" style="left: 35px; top: 84px; transform: translateX(-100%);">크뎀</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 공격대원 점령효과  -->
+                        <div class="row col">
+                            <div class="col">
+                                <div class="row">
+                                    <span>공격대원 효과</span>
+                                </div>
+                                <div class="row" id="raider-effect-parent">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row">
+                                    <span>공격대 점령 효과</span>
+                                </div>
+                                <div class="row" id="raider-occupied-parent">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

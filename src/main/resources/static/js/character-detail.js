@@ -96,6 +96,17 @@ const acrtifactOptionMap = {
     "상태이상 내성 증가": "내성",
 };
 
+const unionStatMap = {
+    "유니온 최대 HP": "HP",
+    "유니온 최대 MP": "MP",
+    "유니온 INT": "INT",
+    "유니온 LUK": "LUK",
+    "유니온 STR": "STR",
+    "유니온 DEX": "DEX",
+    "유니온 공격력": "공격력",
+    "유니온 마력": "마력",
+}
+
 const ctx = document.getElementById('expChart').getContext('2d');
 
 const expChart = new Chart(ctx, {
@@ -228,6 +239,25 @@ function initPresetBtns() {
     if (equipmentPresetNo === 1) cashBtn1.classList.add('active');
     if (equipmentPresetNo === 2) cashBtn2.classList.add('active');
     if (equipmentPresetNo === 3) cashBtn3.classList.add('active');
+
+    //유니온
+    const unionPresetNo = characterData?.unionRaider.use_preset_no;
+    const unionBtn1 = document.getElementById('union-preset-btn1');
+    const unionBtn2 = document.getElementById('union-preset-btn2');
+    const unionBtn3 = document.getElementById('union-preset-btn3');
+    const unionBtn4 = document.getElementById('union-preset-btn4');
+    const unionBtn5 = document.getElementById('union-preset-btn5');
+    unionBtn1.addEventListener('click', () => updateRaider(1));
+    unionBtn2.addEventListener('click', () => updateRaider(2));
+    unionBtn3.addEventListener('click', () => updateRaider(3));
+    unionBtn4.addEventListener('click', () => updateRaider(4));
+    unionBtn5.addEventListener('click', () => updateRaider(5));
+    // 버튼 액티브 효과 추가
+    if (unionPresetNo === 1) unionBtn1.classList.add('active');
+    if (unionPresetNo === 2) unionBtn2.classList.add('active');
+    if (unionPresetNo === 3) unionBtn3.classList.add('active');
+    if (unionPresetNo === 4) unionBtn4.classList.add('active');
+    if (unionPresetNo === 5) unionBtn5.classList.add('active');
 }
 
 // preset-btn 토글 이벤트
@@ -279,7 +309,7 @@ function updateCharacterData() {
     updateUnionArtifact();
 
     // 유니온 레이더
-    updateRaider();
+    updateRaider(characterData.unionRaider.use_preset_no);
 }
 
 // 스탯 가져오는 함수
@@ -731,18 +761,33 @@ function getDiamondIcon(quantity) {
     return html;
 }
 
-function updateRaider() {
+function updateRaider(presetNum) {
 
     const cellParent = document.getElementById('raider-cell-parent');
+    const effectParent = document.getElementById('raider-effect-parent');
+    const occupiedParent = document.getElementById('raider-occupied-parent');
+    let raiderData = characterData?.unionRaider[`union_raider_preset_${presetNum}`] || '';
 
-    const raiderData = characterData?.unionRaider || '';
-    const raiderStat = raiderData.union_raider_stat;  //공격대원 효과
-    const occupiedStat = raiderData.union_occupied_stat; //점령 효과
+    const raiderStat = raiderData.union_raider_stat.sort();  //공격대원 효과
+    const occupiedStat = raiderData.union_occupied_stat.sort(); //점령 효과
     const innerStat = raiderData.union_inner_stat; //공격대 배치(11시부터 시계방향으로 스텟 배치)
+
     const blockDatas = raiderData.union_block; //유니온블록 정보
     const CELLSIZE = 14;
-    let cellHtml = '';
 
+    let cellHtml = '';
+    let effectHtml = '';
+    let occupiedHtml = '';
+
+    // 스텟 배치
+    for (const stat of innerStat) {
+        let statId = stat.stat_field_id;
+        const statLabel = document.getElementById(`raider-stat-name${statId}`);
+
+        statLabel.textContent = unionStatMap[stat.stat_field_effect];
+    }
+
+    // 전투지도 칸 채우기
     for (const blockData of blockDatas) {
         const positions = blockData.block_position;
 
@@ -750,13 +795,28 @@ function updateRaider() {
             const pos = calCellPos({x: position.x, y: position.y}, CELLSIZE);
 
             cellHtml += `
-                <div class="raider-cell" style="left: ${pos.x}px; top: ${pos.y}px"></div>
+                <div class="raider-cell" style="left: ${pos.x}px; top: ${pos.y}px;"></div>
             `;
         }
     }
 
-    cellParent.innerHTML = cellHtml;
+    // 공격대원 효과
+    for (const stat of raiderStat) {
+        effectHtml += `
+            <span class="raider-stat">${stat}</span>
+        `;
+    }
 
+    // 점령 효과
+    for (const stat of occupiedStat) {
+        occupiedHtml += `
+            <span class="raider-stat">${stat}</span>
+        `;
+    }
+
+    cellParent.innerHTML = cellHtml;
+    effectParent.innerHTML = effectHtml;
+    occupiedParent.innerHTML = occupiedHtml;
 
 }
 
