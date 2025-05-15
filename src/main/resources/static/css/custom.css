@@ -5,11 +5,17 @@
     --divider-color: #3a3a3a;
     --text-primary: #b4b4b4;
     --text-secondary: #888888;
+    --btn-primary: #404040;
+    --btn-hover: #5a5a5a;
+    --btn-select: #606060;
+    --slot-primary: #1b1b1b;
+
 
     /* 추가 색상 */
     --starforce-color: #ffc200;
     --starforce-background: rgb(160, 123, 1);
 
+    /* 장비 등급 */
     --legendary: #00ff00;
     --legendary-back: rgb(1, 151, 1);
     --unique: #ffcc00;
@@ -19,6 +25,15 @@
     --rare: #60fcf8;
     --rare-back: rgb(52, 137, 135);
     --basic: #e6e6e6;
+
+    /* 펫 등급 */
+    --luna-petit: #9663c8;
+    --luna-sweat: #c3509d;
+    --luna-dream: #00ccff;
+
+    /* 아티팩트 등급 */
+    --artifact-max: #6D62A1;
+    --artifact: #198ca8;
 }
 
 /* 전체 배경 */
@@ -137,7 +152,9 @@ body {
 }
 
 .stat-header {
-
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-primary);
 }
 
 /* 스탯 라벨 */
@@ -153,9 +170,226 @@ body {
     color: white;
 }
 
-/*!* 뱃지 *!*/
-/*.badge {*/
-/*    color: var(--text-primary);*/
-/*    background-color: var(--text-secondary);*/
-/*    border-radius: 4px;*/
-/*}*/
+/* 텍스트 구분선 */
+.divider {
+    display: inline-block;
+    width: 1px;
+    height: 8px;
+    background: var(--text-primary);
+}
+
+/* 프리셋  버튼*/
+.preset-btn {
+    background-color: var(--btn-primary);
+    color: var(--text-secondary);
+    border: 1px var(--btn-primary) solid;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 3px;
+    text-align: center;
+}
+
+.preset-btn:hover {
+    background-color: var(--btn-hover);
+    border: 1px var(--btn-hover) solid;
+}
+
+.preset-btn.active {
+    background-color: var(--btn-select);
+    border: 1px var(--btn-select) solid;
+    color: white;
+}
+
+/* 네비게이션&탭 버튼 */
+.nav-btn {
+    background-color: var(--btn-primary);
+    color: var(--text-secondary);
+    border: 1px var(--btn-primary) solid;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 8px 60px;
+    text-align: center;
+}
+
+.nav-btn:hover {
+    background-color: var(--btn-hover);
+    border: 1px var(--btn-hover) solid;
+}
+
+.nav-btn.active {
+    background-color: var(--btn-select);
+    border: 1px var(--btn-select) solid;
+    color: white;
+}
+
+/* 캐시 카드 */
+.cash-card-partname {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+
+.cash-card-itemname {
+    font-weight: 800;
+}
+
+.cash-card-prism {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+/* 펫 */
+.pet-img-wrapper {
+    background-color: var(--slot-primary);
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.pet-img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    align-self: center;
+}
+
+.pet-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.pet-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.pet-grade {
+    font-size: 12px;
+}
+
+.pet-name {
+    font-weight: 800;
+}
+
+.pet-equip-effect {
+    font-size: 12px;
+    color: var(--text-primary);
+}
+
+.grade-luna-petit {
+    color: var(--luna-petit);
+}
+
+.grade-luna-sweat {
+    color: var(--luna-sweat);
+}
+
+.grade-luna-dream {
+    color: var(--luna-dream);
+}
+
+
+/* 스킬 */
+.skill-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    background-color: var(--slot-primary);
+    padding: 5px;
+    align-items: center;
+    width: 70px;
+    height: 100px;
+}
+
+.skill-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.skill-name {
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: inherit;
+    padding: 0px 4px;
+    text-align: center;
+}
+
+/* 유니온 아티팩트 */
+.artifact-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--divider-color);
+    border-radius: 8px;
+    background-color: var(--slot-primary);
+    padding: 5px;
+    align-items: center;
+}
+
+.artifact-wrapper {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.artifact-label {
+    font-size: 12px;
+}
+
+.artifact-grade-max {
+    color: var(--artifact-max);
+}
+
+.artifact-grade {
+    color: var(--artifact);
+}
+
+/* 유니온 레이더 */
+.raider-con {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 308px;
+    height: 280px;
+    background: var(--slot-primary);
+}
+.raider-img {
+    width: 308px;
+    height: 280px;
+    z-index: 2;
+}
+
+.raider-cell {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-color: #c49a6c;
+}
+
+.raider-stat-name {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.raider-stat {
+    display: list-item;
+    font-size: 12px;
+}

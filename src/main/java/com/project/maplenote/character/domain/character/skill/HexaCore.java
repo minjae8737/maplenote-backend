@@ -2,12 +2,14 @@ package com.project.maplenote.character.domain.character.skill;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class HexaCore {
 
     @JsonProperty("hexa_core_name")

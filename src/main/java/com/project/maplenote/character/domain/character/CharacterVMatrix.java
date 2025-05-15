@@ -3,12 +3,14 @@ package com.project.maplenote.character.domain.character;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.maplenote.character.domain.character.skill.VCore;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CharacterVMatrix {
 
     @JsonProperty("date")

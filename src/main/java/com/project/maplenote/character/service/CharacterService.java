@@ -2,11 +2,17 @@ package com.project.maplenote.character.service;
 
 import com.project.maplenote.character.domain.Dto.CharacterResponseDto;
 import com.project.maplenote.character.domain.character.*;
+import com.project.maplenote.character.domain.union.Union;
+import com.project.maplenote.character.domain.union.UnionArtifact;
+import com.project.maplenote.character.domain.union.UnionChampion;
+import com.project.maplenote.character.domain.union.UnionRaider;
 import com.project.maplenote.character.repository.CharacterExpRepository;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,10 +27,13 @@ import java.util.List;
 @Slf4j
 public class CharacterService {
 
-    String BASEURL = "/character";
+    String BASEURL_CHARACTER = "/character";
+    String BASEURL_UNION = "/user";
 
     private final CharacterExpRepository characterExpRepository;
     private final WebClient webClient;
+    private final ReactiveRedisTemplate<String, Object> redisTemplate;
+
 
     @RateLimiter(name = "myRateLimiter")
     public Mono<CharacterResponseDto> getCharacterData(String characterName) {
@@ -38,7 +47,37 @@ public class CharacterService {
                 .doOnError(error -> log.info("############ Fail get CharacterData : {}", error.getMessage()));
     }
 
+    public Mono<CharacterOcid> getOcid(String characterName) {
+        String cacheKey = characterName;
+
+        return redisTemplate.opsForValue().get(cacheKey)
+                .cast(CharacterOcid.class)
+                .switchIfEmpty(
+                        getOcidFromApi(characterName)
+                                .flatMap(characterOcid -> redisTemplate
+                                        .opsForValue()
+                                        .set(cacheKey, characterOcid)
+                                        .thenReturn(characterOcid)
+                                )
+                );
+    }
+
     public Mono<CharacterResponseDto> getCharacter(String ocid, String date) {
+        String cacheKey = "character:" + ocid;
+
+        return redisTemplate.opsForValue().get(cacheKey)
+                .cast(CharacterResponseDto.class)
+                .switchIfEmpty(
+                        getCharacterFromApi(ocid, date)
+                                .flatMap(character -> redisTemplate
+                                        .opsForValue()
+                                        .set(cacheKey, character, Duration.ofMinutes(15)) // TTL 설정
+                                        .thenReturn(character)
+                                )
+                );
+    }
+
+    public Mono<CharacterResponseDto> getCharacterFromApi(String ocid, String date) {
 
         List<Mono<?>> monos = List.of(
                 getCharacterBasic(ocid, date),
@@ -59,7 +98,11 @@ public class CharacterService {
                 getCharacterVMatrix(ocid, date),
                 getCharacterHexaMatrix(ocid, date),
                 getCharacterHexaMatrixStat(ocid, date),
-                getCharacterDojang(ocid, date)
+                getCharacterDojang(ocid, date),
+                getUnion(ocid, date),
+                getUnionRaider(ocid, date),
+                getUnionArtifact(ocid, date),
+                getUnionChampion(ocid, date)
         );
 
         return Flux.fromIterable(monos)
@@ -85,11 +128,15 @@ public class CharacterService {
                         (CharacterHexaMatrix) objects.get(16),
                         (CharacterHexaMatrixStat) objects.get(17),
                         (CharacterDojang) objects.get(18),
-                        findCharacterExp(ocid)
+                        findCharacterExp(ocid),
+                        (Union) objects.get(19),
+                        (UnionRaider) objects.get(20),
+                        (UnionArtifact) objects.get(21),
+                        (UnionChampion) objects.get(22)
                 ));
     }
 
-    public Mono<CharacterOcid> getOcid(String characterName) {
+    public Mono<CharacterOcid> getOcidFromApi(String characterName) {
         String url = "/id";
 
         return webClient
@@ -108,7 +155,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterBasic> getCharacterBasic(String ocid, String date) {
-        String url = BASEURL + "/basic";
+        String url = BASEURL_CHARACTER + "/basic";
 
         return webClient
                 .get()
@@ -124,7 +171,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterPopularity> getCharacterPopularity(String ocid, String date) {
-        String url = BASEURL + "/popularity";
+        String url = BASEURL_CHARACTER + "/popularity";
 
         return webClient
                 .get()
@@ -139,7 +186,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterStat> getCharacterStat(String ocid, String date) {
-        String url = BASEURL + "/stat";
+        String url = BASEURL_CHARACTER + "/stat";
 
         return webClient
                 .get()
@@ -154,7 +201,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterHyperStat> getCharacterHyperStat(String ocid, String date) {
-        String url = BASEURL + "/hyper-stat";
+        String url = BASEURL_CHARACTER + "/hyper-stat";
 
         return webClient
                 .get()
@@ -169,7 +216,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterPropensity> getCharacterPropensity(String ocid, String date) {
-        String url = BASEURL + "/propensity";
+        String url = BASEURL_CHARACTER + "/propensity";
 
         return webClient
                 .get()
@@ -184,7 +231,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterAbility> getCharacterAbility(String ocid, String date) {
-        String url = BASEURL + "/ability";
+        String url = BASEURL_CHARACTER + "/ability";
 
         return webClient
                 .get()
@@ -199,7 +246,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterItemEquipment> getCharacterItemEquipment(String ocid, String date) {
-        String url = BASEURL + "/item-equipment";
+        String url = BASEURL_CHARACTER + "/item-equipment";
 
         return webClient
                 .get()
@@ -214,7 +261,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterSymbolEquipment> getCharacterSymbolEquipment(String ocid, String date) {
-        String url = BASEURL + "/symbol-equipment";
+        String url = BASEURL_CHARACTER + "/symbol-equipment";
 
         return webClient
                 .get()
@@ -229,7 +276,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterSetEffect> getCharacterSetEffect(String ocid, String date) {
-        String url = BASEURL + "/set-effect";
+        String url = BASEURL_CHARACTER + "/set-effect";
 
         return webClient
                 .get()
@@ -244,7 +291,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterCashItemEquipment> getCharacterCashItemEquipment(String ocid, String date) {
-        String url = BASEURL + "/cashitem-equipment";
+        String url = BASEURL_CHARACTER + "/cashitem-equipment";
 
         return webClient
                 .get()
@@ -259,7 +306,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterBeautyEquipment> getCharacterBeautyEquipment(String ocid, String date) {
-        String url = BASEURL + "/beauty-equipment";
+        String url = BASEURL_CHARACTER + "/beauty-equipment";
 
         return webClient
                 .get()
@@ -275,7 +322,7 @@ public class CharacterService {
 
 
     public Mono<CharacterAndroidEquipment> getCharacterAndroidEquipment(String ocid, String date) {
-        String url = BASEURL + "/android-equipment";
+        String url = BASEURL_CHARACTER + "/android-equipment";
 
         return webClient
                 .get()
@@ -290,7 +337,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterPetEquipment> getCharacterPetEquipment(String ocid, String date) {
-        String url = BASEURL + "/pet-equipment";
+        String url = BASEURL_CHARACTER + "/pet-equipment";
 
         return webClient
                 .get()
@@ -315,7 +362,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterSkill> getCharacterSkill(String ocid, String date, String skillGrade) {
-        String url = BASEURL + "/skill";
+        String url = BASEURL_CHARACTER + "/skill";
 
         return webClient
                 .get()
@@ -331,7 +378,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterLinkSkill> getCharacterLinkSkill(String ocid, String date) {
-        String url = BASEURL + "/link-skill";
+        String url = BASEURL_CHARACTER + "/link-skill";
 
         return webClient
                 .get()
@@ -346,7 +393,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterVMatrix> getCharacterVMatrix(String ocid, String date) {
-        String url = BASEURL + "/vmatrix";
+        String url = BASEURL_CHARACTER + "/vmatrix";
 
         return webClient
                 .get()
@@ -361,7 +408,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterHexaMatrix> getCharacterHexaMatrix(String ocid, String date) {
-        String url = BASEURL + "/hexamatrix";
+        String url = BASEURL_CHARACTER + "/hexamatrix";
 
         return webClient
                 .get()
@@ -376,7 +423,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterHexaMatrixStat> getCharacterHexaMatrixStat(String ocid, String date) {
-        String url = BASEURL + "/hexamatrix-stat";
+        String url = BASEURL_CHARACTER + "/hexamatrix-stat";
 
         return webClient
                 .get()
@@ -391,7 +438,7 @@ public class CharacterService {
     }
 
     public Mono<CharacterDojang> getCharacterDojang(String ocid, String date) {
-        String url = BASEURL + "/dojang";
+        String url = BASEURL_CHARACTER + "/dojang";
 
         return webClient
                 .get()
@@ -405,7 +452,68 @@ public class CharacterService {
                 .bodyToMono(CharacterDojang.class);
     }
 
+    public Mono<Union> getUnion(String ocid, String date) {
+        String url = BASEURL_UNION + "/union";
 
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(Union.class);
+    }
+
+    public Mono<UnionRaider> getUnionRaider(String ocid, String date) {
+        String url = BASEURL_UNION + "/union-raider";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(UnionRaider.class);
+    }
+
+    public Mono<UnionArtifact> getUnionArtifact(String ocid, String date) {
+        String url = BASEURL_UNION + "/union-artifact";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(UnionArtifact.class);
+    }
+
+    public Mono<UnionChampion> getUnionChampion(String ocid, String date) {
+        String url = BASEURL_UNION + "/union-champion";
+
+        return webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(url)
+                        .queryParam("ocid", ocid)
+                        .queryParam("date", date)
+                        .build()
+                )
+                .retrieve()
+                .bodyToMono(UnionChampion.class);
+    }
+
+
+    @Transactional
     public void saveCharacterExp(CharacterBasic characterBasic, String ocid) {
 
         // date ,ocid 기준 데이터가 있는지 체크
@@ -426,6 +534,7 @@ public class CharacterService {
 
     }
 
+    @Transactional(readOnly = true)
     public List<CharacterExp> findCharacterExp(String ocid) {
         return characterExpRepository.findAllByOcid(ocid);
     }

@@ -3,12 +3,14 @@ package com.project.maplenote.character.domain.character.item.pet;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.maplenote.character.domain.character.item.ItemOption;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PetEquipment {
     @JsonProperty("item_name")
     private String itemName; // 아이템 명

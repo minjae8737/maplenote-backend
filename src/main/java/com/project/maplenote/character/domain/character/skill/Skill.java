@@ -2,10 +2,12 @@ package com.project.maplenote.character.domain.character.skill;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Skill {
     @JsonProperty("skill_name")
     private String skillName; // 스킬 명

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.maplenote.character.domain.character.stat.AbilityInfo;
 import com.project.maplenote.character.domain.character.stat.AbilityPreset;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class CharacterAbility {
 
     @JsonProperty("date")
