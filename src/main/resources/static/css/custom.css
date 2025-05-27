@@ -34,6 +34,30 @@
     /* 아티팩트 등급 */
     --artifact-max: #6D62A1;
     --artifact: #198ca8;
+
+    /* 보스 난이도 색상 */
+    --checked-border: #3e8e41;
+    --checked-shadow: #4CAF5066;
+    --boss-easy-back: #888888;
+    --boss-easy-back-hov: #707070;
+
+    --boss-normal-back: #22a4b4;
+    --boss-normal-back-hov: #197e8a;
+
+    --boss-chaos-back: #333333;
+    --boss-chaos-back-hov: #1b1b1b;
+    --boss-chaos-border: #ddbb88;
+
+    --boss-hard-back: #c44373;
+    --boss-hard-back-hov: #b43363;
+
+    --boss-extreme-back: #333333;
+    --boss-extreme-back-hov: #1b1b1b;
+    --boss-extreme-border: #e43363;
+    --boss-extreme-font1: #d47323;
+    --boss-extreme-font2: #e44353;
+
+
 }
 
 /* 전체 배경 */
@@ -455,20 +479,166 @@ input[type=number] {
     display: none; !important;
 }
 
+/* 보스 기록 */
 .boss-img-con {
     position: relative;
     display: flex;
     flex-wrap: wrap;
 }
 
-.boss-level-easy {
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    width: 100%;
-    height: 30px;
-    background-color: #c49a6c;
+/* easy */
+.boss-level-easy-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
     text-align: center;
+    user-select: none;
+    background-color: var(--boss-easy-back);
+    color: white;
     font-size: 20px;
     font-weight: 600;
+}
+
+.boss-level-easy-btn:hover {
+    background-color: var(--boss-easy-back-hov);
+    cursor: pointer;
+}
+
+.btn-check:checked + .boss-level-easy-btn {
+    background-color: var(--boss-easy-back);
+    color: white;
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+.btn-check:checked + .boss-level-easy-btn:hover {
+    background-color: var(--boss-easy-back-hov);
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+/* normal */
+.boss-level-normal-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    user-select: none;
+    background-color: var(--boss-normal-back);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.boss-level-normal-btn:hover {
+    background-color: var(--boss-normal-back-hov);
+    cursor: pointer;
+}
+
+.btn-check:checked + .boss-level-normal-btn {
+    background-color: var(--boss-normal-back);
+    color: white;
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+.btn-check:checked + .boss-level-normal-btn:hover {
+    background-color: var(--boss-normal-back-hov);
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+/* chaos */
+.boss-level-chaos-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    user-select: none;
+    background-color: var(--boss-chaos-back);
+    border: 2px solid var(--boss-chaos-border);
+    color: var(--boss-chaos-border);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.boss-level-chaos-btn:hover {
+    background-color: var(--boss-chaos-back-hov);
+    cursor: pointer;
+}
+
+.btn-check:checked + .boss-level-chaos-btn {
+    background-color: var(--boss-chaos-back);
+    color: white;
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+.btn-check:checked + .boss-level-chaos-btn:hover {
+    background-color: var(--boss-chaos-back-hov);
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+/* hard */
+.boss-level-hard-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    user-select: none;
+    background-color: var(--boss-hard-back);
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.boss-level-hard-btn:hover {
+    background-color: var(--boss-hard-back-hov);
+    cursor: pointer;
+}
+
+.btn-check:checked + .boss-level-hard-btn {
+    background-color: var(--boss-hard-back);
+    color: white;
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+.btn-check:checked + .boss-level-hard-btn:hover {
+    background-color: var(--boss-hard-back-hov);
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+/* extreme */
+.boss-level-extreme-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    user-select: none;
+    background-color: var(--boss-extreme-back);
+    border: 2px solid var(--boss-chaos-border);
+    color: var(--boss-extreme-font2);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.boss-level-extreme-btn:hover {
+    background-color: var(--boss-extreme-back-hov);
+    cursor: pointer;
+}
+
+.btn-check:checked + .boss-level-extreme-btn {
+    background-color: var(--boss-extreme-back);
+    color: var(--boss-extreme-font2);
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
+}
+
+.btn-check:checked + .boss-level-extreme-btn:hover {
+    background-color: var(--boss-extreme-back-hov);
+    border-color: var(--checked-border);
+    box-shadow: 0 0 0 0.2rem var(--checked-shadow);
 }

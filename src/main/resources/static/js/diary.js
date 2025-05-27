@@ -7,7 +7,7 @@ const bossList = [
     {
         name: "자쿰",
         name_eng: "zakum",
-        image: "../../static/images/boss/boss_zakum.webp",
+        image: "../../static/images/boss/boss_zakum.png",
         rewards: {
             easy: {meso: 114000, weekly: false},
             normal: {meso: 349000, weekly: false},
@@ -17,7 +17,7 @@ const bossList = [
     {
         name: "혼테일",
         name_eng: "horntail",
-        image: "../../static/images/boss/boss_horntail.webp",
+        image: "../../static/images/boss/boss_horntail.png",
         rewards: {
             easy: {meso: 502000, weekly: false},
             normal: {meso: 576000, weekly: false},
@@ -27,7 +27,7 @@ const bossList = [
     {
         name: "핑크빈",
         name_eng: "pink_bean",
-        image: "../../static/images/boss/boss_pink_bean.webp",
+        image: "../../static/images/boss/boss_pink_bean.png",
         rewards: {
             normal: {meso: 799000, weekly: false},
             chaos: {meso: 6580000, weekly: true}
@@ -36,7 +36,7 @@ const bossList = [
     {
         name: "파풀라투스",
         name_eng: "papulatus",
-        image: "../../static/images/boss/boss_papulatus.webp",
+        image: "../../static/images/boss/boss_papulatus.png",
         rewards: {
             easy: {meso: 390000, weekly: false},
             normal: {meso: 1520000, weekly: false},
@@ -46,7 +46,7 @@ const bossList = [
     {
         name: "시그너스",
         name_eng: "cygnus",
-        image: "../../static/images/boss/boss_cygnus.webp",
+        image: "../../static/images/boss/boss_cygnus.png",
         rewards: {
             easy: {meso: 4550000, weekly: true},
             normal: {meso: 7500000, weekly: true},
@@ -55,7 +55,7 @@ const bossList = [
     {
         name: "힐라",
         name_eng: "hilla",
-        image: "../../static/images/boss/boss_hilla.webp",
+        image: "../../static/images/boss/boss_hilla.png",
         rewards: {
             normal: {meso: 455000, weekly: false},
             hard: {meso: 5750000, weekly: true}
@@ -64,7 +64,7 @@ const bossList = [
     {
         name: "반 레온",
         name_eng: "von_leon",
-        image: "../../static/images/boss/boss_von_leon.webp",
+        image: "../../static/images/boss/boss_von_leon.png",
         rewards: {
             easy: {meso: 602000, weekly: false},
             normal: {meso: 830000, weekly: false},
@@ -74,7 +74,7 @@ const bossList = [
     {
         name: "아카이럼",
         name_eng: "arkarium",
-        image: "../../static/images/boss/boss_arkarium.webp",
+        image: "../../static/images/boss/boss_arkarium.png",
         rewards: {
             easy: {meso: 656000, weekly: false},
             normal: {meso: 1430000, weekly: false}
@@ -83,7 +83,7 @@ const bossList = [
     {
         name: "매그너스",
         name_eng: "magnus",
-        image: "../../static/images/boss/boss_magnus.webp",
+        image: "../../static/images/boss/boss_magnus.png",
         rewards: {
             easy: {meso: 411000, weekly: false},
             normal: {meso: 1480000, weekly: false},
@@ -93,7 +93,7 @@ const bossList = [
     {
         name: "블러디퀸",
         name_eng: "crimson_queen",
-        image: "../../static/images/boss/boss_crimson_queen.webp",
+        image: "../../static/images/boss/boss_crimson_queen.png",
         rewards: {
             normal: {meso: 551000, weekly: false},
             chaos: {meso: 8140000, weekly: true}
@@ -102,7 +102,7 @@ const bossList = [
     {
         name: "반반",
         name_eng: "von_bon",
-        image: "../../static/images/boss/boss_von_bon.webp",
+        image: "../../static/images/boss/boss_von_bon.png",
         rewards: {
             normal: {meso: 551000, weekly: false},
             chaos: {meso: 8150000, weekly: true}
@@ -111,7 +111,7 @@ const bossList = [
     {
         name: "피에르",
         name_eng: "pierre",
-        image: "../../static/images/boss/boss_pierre.webp",
+        image: "../../static/images/boss/boss_pierre.png",
         rewards: {
             normal: {meso: 551000, weekly: false},
             chaos: {meso: 8170000, weekly: true}
@@ -120,7 +120,7 @@ const bossList = [
     {
         name: "벨룸",
         name_eng: "vellum",
-        image: "../../static/images/boss/boss_vellum.webp",
+        image: "../../static/images/boss/boss_vellum.png",
         rewards: {
             normal: {meso: 551000, weekly: false},
             chaos: {meso: 9280000, weekly: true}
@@ -129,7 +129,7 @@ const bossList = [
     {
         name: "카웅",
         name_eng: "OMNI-CLN",
-        image: "../../static/images/boss/boss_OMNI-CLN.webp",
+        image: "../../static/images/boss/boss_OMNI-CLN.png",
         rewards: {
             normal: {meso: 712000, weekly: false}
         }
@@ -137,7 +137,7 @@ const bossList = [
     {
         name: "스우",
         name_eng: "lotus",
-        image: "../../static/images/boss/boss_lotus.webp",
+        image: "../../static/images/boss/boss_lotus.png",
         rewards: {
             normal: {meso: 22000000, weekly: true},
             hard: {meso: 77400000, weekly: true},
@@ -147,7 +147,7 @@ const bossList = [
     {
         name: "데미안",
         name_eng: "damien",
-        image: "../../static/images/boss/boss_damien.webp",
+        image: "../../static/images/boss/boss_damien.png",
         rewards: {
             normal: {meso: 23000000, weekly: true},
             hard: {meso: 73500000, weekly: true}
@@ -156,7 +156,7 @@ const bossList = [
     {
         name: "가디언 엔젤 슬라임",
         name_eng: "guardian_angel_slime",
-        image: "../../static/images/boss/boss_guardian_angel_slime.webp",
+        image: "../../static/images/boss/boss_guardian_angel_slime.png",
         rewards: {
             normal: {meso: 33500000, weekly: true},
             chaos: {meso: 113000000, weekly: true}
@@ -165,7 +165,7 @@ const bossList = [
     {
         name: "루시드",
         name_eng: "lucid",
-        image: "../../static/images/boss/boss_lucid.webp",
+        image: "../../static/images/boss/boss_lucid.png",
         rewards: {
             easy: {meso: 39200000, weekly: true},
             normal: {meso: 46900000, weekly: true},
@@ -175,7 +175,7 @@ const bossList = [
     {
         name: "윌",
         name_eng: "will",
-        image: "../../static/images/boss/boss_will.webp",
+        image: "../../static/images/boss/boss_will.png",
         rewards: {
             easy: {meso: 42500000, weekly: true},
             normal: {meso: 54100000, weekly: true},
@@ -185,7 +185,7 @@ const bossList = [
     {
         name: "더스크",
         name_eng: "gloom",
-        image: "../../static/images/boss/boss_gloom.webp",
+        image: "../../static/images/boss/boss_gloom.png",
         rewards: {
             normal: {meso: 57900000, weekly: true},
             chaos: {meso: 105000000, weekly: true}
@@ -194,7 +194,7 @@ const bossList = [
     {
         name: "듄켈",
         name_eng: "darknell",
-        image: "../../static/images/boss/boss_darknell.webp",
+        image: "../../static/images/boss/boss_darknell.png",
         rewards: {
             normal: {meso: 62500000, weekly: true},
             hard: {meso: 142000000, weekly: true}
@@ -203,7 +203,7 @@ const bossList = [
     {
         name: "진 힐라",
         name_eng: "verus_hilla",
-        image: "../../static/images/boss/boss_verus_hilla.webp",
+        image: "../../static/images/boss/boss_verus_hilla.png",
         rewards: {
             normal: {meso: 107000000, weekly: true},
             hard: {meso: 160000000, weekly: true}
@@ -212,7 +212,7 @@ const bossList = [
     {
         name: "선택받은 세렌",
         name_eng: "seren",
-        image: "../../static/images/boss/boss_seren.webp",
+        image: "../../static/images/boss/boss_seren.png",
         rewards: {
             normal: {meso: 295000000, weekly: true},
             hard: {meso: 440000000, weekly: true},
@@ -222,7 +222,7 @@ const bossList = [
     {
         name: "감시자 칼로스",
         name_eng: "kalos",
-        image: "../../static/images/boss/boss_kalos.webp",
+        image: "../../static/images/boss/boss_kalos.png",
         rewards: {
             easy: {meso: 345000000, weekly: true},
             normal: {meso: 510000000, weekly: true},
@@ -233,7 +233,7 @@ const bossList = [
     {
         name: "카링",
         name_eng: "kaling",
-        image: "../../static/images/boss/boss_kaling.webp",
+        image: "../../static/images/boss/boss_kaling.png",
         rewards: {
             easy: {meso: 381000000, weekly: true},
             normal: {meso: 595000000, weekly: true},
@@ -244,7 +244,7 @@ const bossList = [
     {
         name: "림보",
         name_eng: "limbo",
-        image: "../../static/images/boss/boss_limbo.webp",
+        image: "../../static/images/boss/boss_limbo.png",
         rewards: {
             normal: {meso: 900000000, weekly: true},
             hard: {meso: 1930000000, weekly: true}
@@ -253,7 +253,7 @@ const bossList = [
     {
         name: "발드릭스",
         name_eng: "baldrix",
-        image: "../../static/images/boss/boss_baldrix.webp",
+        image: "../../static/images/boss/boss_baldrix.png",
         rewards: {
             normal: {meso: 1200000000, weekly: true},
             hard: {meso: 2160000000, weekly: true}
@@ -262,7 +262,7 @@ const bossList = [
     {
         name: "검은 마법사",
         name_eng: "black_mage",
-        image: "../../static/images/boss/boss_black_mage.webp",
+        image: "../../static/images/boss/boss_black_mage.png",
         rewards: {
             hard: {meso: 1000000000, monthly: true},
             extreme: {meso: 9200000000, monthly: true}
@@ -271,11 +271,11 @@ const bossList = [
 ];
 
 const bossBtnClassMap = {
-    "easy" : "btn-outline-success",
-    "normal" : "btn-outline-primary",
-    "hard" : "btn-outline-danger",
-    "chaos" : "btn-outline-danger",
-    "extreme" : "btn-outline-dark",
+    "easy" : "boss-level-easy-btn",
+    "normal" : "boss-level-normal-btn",
+    "hard" : "boss-level-hard-btn",
+    "chaos" : "boss-level-chaos-btn",
+    "extreme" : "boss-level-extreme-btn",
 }
 
 
@@ -496,7 +496,7 @@ function initBossAddForm() {
 
             bossLevelHtml += `
                 <input type="checkbox" class="btn-check boss-checkbox" id="${boss.name_eng}-${level}" autocomplete="off">
-                <label class="btn ${btnClass}" for="${boss.name_eng}-${level}">${level}</label>
+                <label class="${btnClass}" for="${boss.name_eng}-${level}">${level.toUpperCase()}</label>
             `;
         }
 
