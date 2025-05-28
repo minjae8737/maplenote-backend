@@ -270,13 +270,13 @@ const bossList = [
     }
 ];
 
-const bossBtnClassMap = {
-    "easy" : "boss-level-easy-btn",
-    "normal" : "boss-level-normal-btn",
-    "hard" : "boss-level-hard-btn",
-    "chaos" : "boss-level-chaos-btn",
-    "extreme" : "boss-level-extreme-btn",
-}
+const bossLevelClassMap = [
+    {level: "easy", btnClass: "boss-level-easy-btn", badgeClass: "boss-level-easy-badge"},
+    {level: "normal", btnClass: "boss-level-normal-btn", badgeClass: "boss-level-normal-badge"},
+    {level: "hard", btnClass: "boss-level-hard-btn", badgeClass: "boss-level-hard-badge"},
+    {level: "chaos", btnClass: "boss-level-chaos-btn", badgeClass: "boss-level-chaos-badge"},
+    {level: "extreme", btnClass: "boss-level-extreme-btn", badgeClass: "boss-level-extreme-badge"},
+]
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -355,7 +355,7 @@ function initListener() {
     })
 
     const grindBtnCancel = document.getElementById('grind-btn-cancel');
-    grindBtnCancel.addEventListener('click', () => onClickGrindBtnCancel());
+    grindBtnCancel.addEventListener('click', () => offAddGrindForm());
 
     const grindBtnSave = document.getElementById('grind-btn-save');
     grindBtnSave.addEventListener('click', () => onClickGrindAdd());
@@ -368,7 +368,7 @@ function initListener() {
     });
 
     const bossBtnCancel = document.getElementById('boss-btn-cancel');
-    bossBtnCancel.addEventListener('click', () => onClickBossBtnCancel());
+    bossBtnCancel.addEventListener('click', () => offAddBossForm());
 
     const bossBtnSave = document.getElementById('boss-btn-save');
     bossBtnSave.addEventListener('click', () => onClickBossAdd());
@@ -376,12 +376,12 @@ function initListener() {
 
 }
 
-function onClickGrindBtnCancel() {
+function offAddGrindForm() {
     document.getElementById('add-grind-btn-parent').classList.remove('hidden');
     document.getElementById('grind-form').classList.add('hidden');
 }
 
-function onClickBossBtnCancel() {
+function offAddBossForm() {
     document.getElementById('add-boss-btn-parent').classList.remove('hidden');
     document.getElementById('boss-form').classList.add('hidden');
 }
@@ -436,6 +436,8 @@ function onClickGrindAdd() {
     //FIXME 하루 누적도 바꿔야함
 
     // 실패시 서버오류 알터창띄우고 입력값유지
+
+    offAddGrindForm();
 }
 
 function checkVaildGrindData(values) {
@@ -492,11 +494,11 @@ function initBossAddForm() {
 
         for (const [level, data] of Object.entries(boss.rewards)) {
 
-            const btnClass = bossBtnClassMap[level];
+            const bossLevelClass = bossLevelClassMap.find(map => map.level === level);
 
             bossLevelHtml += `
                 <input type="checkbox" class="btn-check boss-checkbox" id="${boss.name_eng}-${level}" autocomplete="off">
-                <label class="${btnClass}" for="${boss.name_eng}-${level}">${level.toUpperCase()}</label>
+                <label class="${bossLevelClass.btnClass}" for="${boss.name_eng}-${level}">${level.toUpperCase()}</label>
             `;
         }
 
@@ -521,9 +523,13 @@ function initBossAddForm() {
 }
 
 function onClickBossAdd() {
+    const bossLogParent = document.getElementById('boss-log-parent');
     const bossCheckBoxList = document.getElementsByClassName('boss-checkbox');
 
     let checkedBossList = [];
+    let totalMeso = 0;
+    let bossLogHtml = '';
+    let bossCardListHtml = '';
 
     // 체크된 보스 정보 저장
     for (const bossCheckBoxElement of bossCheckBoxList) {
@@ -533,8 +539,51 @@ function onClickBossAdd() {
         }
     }
 
+    //FIXME 나중에 캐릭별 보스기록 추가
+    //FIXME 보스 드롭템 항목도 추가예정
+    //FIXME 캐릭별 주간,일일보스 횟수 검증
 
 
+    for (const boss of checkedBossList) {
+        const findBossData = bossList.find(data => data.name_eng === boss.bossName);
+        const bossLevelClass = bossLevelClassMap.find(map => map.level === boss.level);
+
+        totalMeso += findBossData.rewards[boss.level].meso;
+
+        bossCardListHtml += `
+            <div class="col">
+                <div class="position-relative d-flex flex-column align-items-center">
+                    <img src="${findBossData.image}" alt="...">
+                    <span class="position-absolute ${bossLevelClass.badgeClass}">${boss.level.toUpperCase()}</span>
+                </div>
+            </div>            
+        `;
+
+    }
+
+    bossLogHtml = `
+        <div class="row pt-2 pb-2">
+            <!-- 보스 -->
+            <div class="col-6">
+                <div id="boss-card-parent" class="row row-cols-3 row-cols-md-6 g-1">
+                    ${bossCardListHtml}
+                </div>
+            </div>
+            <!-- 드롭템 -->
+            <div class="col-3 d-flex align-items-center gap-2">
+            </div>
+            <!-- 메소 -->
+            <div class="col-3 d-flex align-items-center gap-2">
+                <img class="diary-img-wrapper" src="../../static/images/item/meso.png">
+                <span class="text-center">${convertMesoText(totalMeso)} 메소</span>
+            </div>
+        </div>    
+    `;
+
+    bossLogParent.innerHTML += bossLogHtml;
+
+
+    offAddBossForm();
 }
 
 

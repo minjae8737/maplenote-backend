@@ -487,6 +487,21 @@ input[type=number] {
 }
 
 /* easy */
+.boss-level-easy-badge {
+    width: 66px;
+    bottom: 0px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background-color: var(--boss-easy-back);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .boss-level-easy-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -518,6 +533,21 @@ input[type=number] {
 }
 
 /* normal */
+.boss-level-normal-badge {
+    width: 66px;
+    bottom: 0px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background-color: var(--boss-normal-back);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .boss-level-normal-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -549,6 +579,22 @@ input[type=number] {
 }
 
 /* chaos */
+.boss-level-chaos-badge {
+    width: 66px;
+    bottom: 0px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background-color: var(--boss-chaos-back);
+    border: 2px solid var(--boss-chaos-border);
+    color: var(--boss-chaos-border);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .boss-level-chaos-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -581,6 +627,21 @@ input[type=number] {
 }
 
 /* hard */
+.boss-level-hard-badge {
+    width: 66px;
+    bottom: 0px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background-color: var(--boss-hard-back);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .boss-level-hard-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
@@ -612,6 +673,22 @@ input[type=number] {
 }
 
 /* extreme */
+.boss-level-extreme-badge {
+    width: 66px;
+    bottom: 0px;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    background-color: var(--boss-extreme-back);
+    border: 2px solid var(--boss-chaos-border);
+    color: var(--boss-extreme-font2);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
 .boss-level-extreme-btn {
     display: inline-block;
     padding: 0.5rem 1rem;
