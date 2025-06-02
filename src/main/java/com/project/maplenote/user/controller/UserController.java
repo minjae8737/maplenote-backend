@@ -15,11 +15,11 @@ public class UserController {
 
     @GetMapping("/join")
     public String showJoinPage() {
-        return "join";
+        return "user/join";
     }
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login";
+        return "user/login";
     }
 }
